@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chatbot Mapper</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e8f83'/%3E%3Cpath d='M8 10h16v9H15l-5 4v-4H8z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 10h16v9H15l-5 4v-4H8z" fill="#fff"/></svg>
+    <span>Chatbot Mapper</span>
+  </div>
+  <input id="flow-name" type="text" spellcheck="false" aria-label="Nome do fluxo" placeholder="Nome do fluxo">
+
+  <div class="tb-group">
+    <button id="btn-new" class="btn" title="Novo fluxo em branco">Novo</button>
+    <button id="btn-open" class="btn" title="Abrir um arquivo .json (ou arraste para a tela)">Abrir</button>
+    <button id="btn-example" class="btn" title="Carregar o fluxo de exemplo">Exemplo</button>
+  </div>
+  <div class="tb-group">
+    <button id="btn-undo" class="btn icon" title="Desfazer (Ctrl+Z)" aria-label="Desfazer">↶</button>
+    <button id="btn-redo" class="btn icon" title="Refazer (Ctrl+Y)" aria-label="Refazer">↷</button>
+  </div>
+  <div class="tb-group">
+    <button id="btn-add" class="btn primary" title="Adicionar um nó">+ Nó</button>
+    <button id="btn-layout" class="btn" title="Reorganizar os nós em colunas">Organizar</button>
+    <button id="btn-fit" class="btn" title="Enquadrar o fluxo inteiro (F)">Enquadrar</button>
+  </div>
+
+  <div class="statchip" title="Progresso de aprovação">
+    <span id="stat-text">0 nós</span>
+    <div class="bar"><i id="stat-bar"></i></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div id="export-wrap" class="menu-wrap">
+    <button id="btn-export" class="btn primary">Exportar ▾</button>
+    <div id="export-menu" class="menu">
+      <button data-export="player"><b>Simulador para o cliente</b><small>Um único .html com o fluxo dentro. Abre em qualquer navegador.</small></button>
+      <button data-export="doc"><b>Documento para validação</b><small>.html bonito, pronto para imprimir em PDF.</small></button>
+      <button data-export="meta"><b>Mensagens para a Meta</b><small>.json no formato da WhatsApp Cloud API.</small></button>
+      <button data-export="json"><b>Salvar fluxo (.json)</b><small>Seu arquivo de trabalho. Reabra em "Abrir". Ctrl+S.</small></button>
+      <button data-export="md"><b>Documento em Markdown</b><small>Para colar em wikis e repositórios.</small></button>
+    </div>
+  </div>
+  <button id="btn-present" class="btn" title="Modo apresentação">Apresentar</button>
+  <button id="btn-theme" class="btn icon" title="Alternar tema claro/escuro" aria-label="Alternar tema"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"/></svg></button>
+  <button id="btn-exit-present" class="btn primary">Sair da apresentação</button>
+</header>
+
+<main id="main">
+  <section id="map" tabindex="0" aria-label="Mapa do fluxo">
+    <div id="world">
+      <svg id="edges" width="1" height="1" aria-hidden="true"></svg>
+      <div id="nodes"></div>
+    </div>
+
+    <div id="empty-hint" hidden>
+      <b>Fluxo vazio</b>
+      <span>Dê um duplo clique aqui para criar o primeiro nó.</span>
+    </div>
+
+    <div id="map-hud">
+      <div class="legend">
+        <span><i class="dot s-todo"></i>A definir</span>
+        <span><i class="dot s-review"></i>Em validação</span>
+        <span><i class="dot s-approved"></i>Aprovado</span>
+        <span id="save-state"></span>
+      </div>
+      <div class="zoom">
+        <button id="zoom-out" class="btn icon" aria-label="Diminuir zoom">−</button>
+        <span id="zoom-label">100%</span>
+        <button id="zoom-in" class="btn icon" aria-label="Aumentar zoom">+</button>
+      </div>
+    </div>
+  </section>
+
+  <aside id="panel">
+    <nav class="tabs">
+      <button data-tab="edit" class="on">Editar</button>
+      <button data-tab="sim">Simular</button>
+      <button data-tab="lint">Validar <span id="lint-badge" class="badge" hidden>0</span></button>
+    </nav>
+
+    <div id="tab-edit" class="pane on"></div>
+
+    <div id="tab-sim" class="pane">
+      <div class="sim-bar">
+        <button id="sim-restart" class="btn sm">↻ Reiniciar</button>
+        <button id="sim-from" class="btn sm" title="Começa a conversa pelo nó selecionado no mapa">▶ Começar daqui</button>
+        <label><input type="checkbox" id="sim-tags"> Nome dos passos</label>
+        <label><input type="checkbox" id="sim-follow" checked> Seguir no mapa</label>
+      </div>
+      <button id="sim-stale" class="stale" hidden>O fluxo mudou · clique para atualizar a simulação</button>
+      <div id="sim-phone"></div>
+    </div>
+
+    <div id="tab-lint" class="pane"></div>
+  </aside>
+</main>
+
+<div id="toast" role="status"></div>
+<input type="file" id="file-input" accept=".json,application/json" hidden>
+
+<script src="js/flow.js"></script>
+<script src="js/meta.js"></script>
+<script src="js/example.js"></script>
+<script src="js/store.js"></script>
+<script src="js/player-css.js"></script>
+<script src="js/player.js"></script>
+<script src="js/exporters.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/inspector.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
