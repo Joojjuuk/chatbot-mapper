@@ -469,6 +469,14 @@ body.present .n-text{font-size:14.5px}
   #search-wrap{width:160px}
   #flow-name{width:120px}
 }
+@media (max-width:640px){
+  #topbar{gap:6px;padding:0 8px;overflow-x:auto}
+  #flow-name,#topbar .tb-group[aria-label="Histórico"],#btn-layout,#btn-fit,#btn-present,.search-kbd{display:none}
+  #search-wrap{width:auto;flex:1;min-width:90px;margin:0}
+  #btn-file,#btn-export{padding:0 8px}
+  #map-top{left:8px;right:8px}
+  .zoom{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
