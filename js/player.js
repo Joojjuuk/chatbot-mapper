@@ -1,26 +1,36 @@
 /* player.js — simulador de conversa (celular) que "roda" o fluxo.
 
    IMPORTANTE: ChatPlayer é uma função autossuficiente (nenhuma dependência externa).
-   O exportador usa ChatPlayer.toString() para embutir o simulador num HTML único,
+   Os exportadores usam ChatPlayer.toString() para embutir o simulador num HTML único,
    então tudo o que ele precisa tem de ficar DENTRO desta função. O estilo fica em player-css.js.
 
-   Uso: const p = ChatPlayer(elemento, fluxo, { delay: 600, showNodes: false, startAt: 'id-do-no', onNode: (id, no) => {} }); */
+   Uso: const p = ChatPlayer(elemento, fluxo, {
+     delay: 600, showNodes: false, startAt: 'id',
+     values: { previsao: '25/11' },          // valores da persona (exemplo das variáveis)
+     onNode: (id, no) => {},                  // passo em que a conversa está
+     onChoice: ({node, port, text}) => {},    // escolha do cliente (para gravar cenários)
+     script: [{node, port, text}],            // toca um cenário sozinho
+     onScriptEnd: (ok, motivo) => {}
+   }); */
 function ChatPlayer(root, flow, opts) {
   opts = opts || {};
   const DELAY = opts.delay == null ? 600 : opts.delay;
   const nodes = {};
   (flow.nodes || []).forEach(n => { nodes[n.id] = n; });
+  const subflows = {};
+  (flow.subflows || []).forEach(s => { subflows[s.id] = s; });
   const settings = flow.settings || {};
-  const sample = settings.sample || {}; // valores de exemplo para as variáveis (só para demonstração)
+  const sample = opts.values || settings.sample || {}; // valores de exemplo para as variáveis (só para demonstração)
   const brand = (flow.meta && flow.meta.brand) || 'Atendimento';
-  let vars = {}, waiting = null, token = 0, autoSteps = 0, timers = [];
+  const script = opts.script ? opts.script.slice() : null;
+  let vars = {}, waiting = null, token = 0, autoSteps = 0, timers = [], stack = [], si = 0;
 
   root.innerHTML = [
     '<div class="cp-phone">',
     '<div class="cp-head"><div class="cp-avatar"></div><div class="cp-who"><b></b><small>conta comercial · online</small></div>',
-    '<button type="button" class="cp-ico cp-restart" title="Reiniciar conversa" aria-label="Reiniciar conversa">&#8635;</button></div>',
+    '<button type="button" class="cp-ico cp-restart" title="Reiniciar conversa" aria-label="Reiniciar conversa"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg></button></div>',
     '<div class="cp-chat" aria-live="polite"></div>',
-    '<form class="cp-composer"><input type="text" autocomplete="off" placeholder="Mensagem" aria-label="Mensagem"><button type="submit" aria-label="Enviar">&#10148;</button></form>',
+    '<form class="cp-composer"><input type="text" autocomplete="off" placeholder="Mensagem" aria-label="Mensagem"><button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M3 20l18-8L3 4v6l12 2-12 2z"/></svg></button></form>',
     '<div class="cp-sheet"><div class="cp-card"><div class="cp-card-h"><span></span><button type="button" aria-label="Fechar">&times;</button></div><div class="cp-rows"></div></div></div>',
     '</div>'
   ].join('');
@@ -40,11 +50,12 @@ function ChatPlayer(root, flow, opts) {
   const clock = () => { const d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); };
   const scroll = () => { chat.scrollTop = chat.scrollHeight; };
   const wait = ms => new Promise(res => { timers.push(setTimeout(res, ms)); });
-  const norm = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  const emit = (node, port, text) => { if (opts.onChoice) opts.onChoice(text == null ? { node: node.id, port } : { node: node.id, port, text }); };
 
   /* Formatação estilo WhatsApp (*negrito*, _itálico_, ~riscado~) e variáveis {{nome}}. */
   function fmt(text) {
-    let h = esc(text).replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, k) => (vars[k] != null ? esc(vars[k]) : (sample[k] != null ? '<span class="cp-sm">' + esc(sample[k]) + '</span>' : '<span class="cp-ph">' + k + '</span>')));
+    let h = esc(text).replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, k) => (vars[k] != null ? esc(vars[k]) : (sample[k] != null && sample[k] !== '' ? '<span class="cp-sm">' + esc(sample[k]) + '</span>' : '<span class="cp-ph">' + k + '</span>')));
     h = h.replace(/\*([^*\n]+)\*/g, '<b>$1</b>')
       .replace(/(^|[\s(>])_([^_\n]+)_(?=$|[\s).,!?<])/g, '$1<i>$2</i>')
       .replace(/~([^~\n]+)~/g, '<s>$1</s>')
@@ -124,13 +135,31 @@ function ChatPlayer(root, flow, opts) {
   function setComposer(enabled, placeholder) {
     input.disabled = !enabled; sendBtn.disabled = !enabled;
     input.placeholder = enabled ? (placeholder || 'Mensagem') : 'Aguarde…';
-    if (enabled) { try { input.focus({ preventScroll: true }); } catch (e) { /* ignora */ } }
+    const ae = document.activeElement;
+    if (enabled && !script && (!ae || ae === document.body || root.contains(ae))) { try { input.focus({ preventScroll: true }); } catch (e) { /* ignora */ } }
   }
 
   function mkButton(cls, label, onclick) {
     const b = document.createElement('button');
     b.type = 'button'; b.className = cls; b.textContent = label; b.addEventListener('click', onclick);
     return b;
+  }
+
+  /* ---------- cenário tocado sozinho ---------- */
+  function scriptEnd(ok, why) {
+    if (!script || script.done) return;
+    script.done = true;
+    if (!ok) note('Cenário divergiu: ' + why, 'warn');
+    else note('Cenário concluído.', 'end');
+    if (opts.onScriptEnd) opts.onScriptEnd(ok, why || '');
+  }
+  function autoplay(node, act) {
+    if (!script || script.done) return;
+    const step = script[si];
+    if (!step) { scriptEnd(true); return; }
+    if (step.node !== node.id) { scriptEnd(false, 'esperava "' + ((nodes[step.node] || {}).title || step.node) + '", mas a conversa está em "' + node.title + '".'); return; }
+    const my = token;
+    timers.push(setTimeout(() => { if (my === token) { si++; act(step); } }, Math.max(450, DELAY * 1.2)));
   }
 
   /* ---------- execução do fluxo ---------- */
@@ -145,25 +174,46 @@ function ChatPlayer(root, flow, opts) {
     if (n.type === 'message') {
       await bot(n, fmt(n.text)); if (my !== token) return;
       if (n.next) return go(n.next);
-      note('Fim do caminho: este passo não tem próximo nó.', 'end');
-      return;
+      return finish('Fim do caminho: este passo não tem próximo.');
+    }
+    if (n.type === 'call') {
+      const sf = subflows[n.target];
+      if (!sf || !sf.start) { note('Este passo chama um subfluxo que não existe ou não tem início.', 'warn'); return; }
+      if (stack.length >= 8) { note('Subfluxos encadeados demais (possível recursão).', 'warn'); return; }
+      stack.push(n.next || null);
+      note('↳ ' + sf.name, 'sf');
+      return go(sf.start);
+    }
+    if (n.type === 'return') {
+      if (!stack.length) return finish('Fim do subfluxo.');
+      const back = stack.pop();
+      if (back) return go(back);
+      return finish('Fim do caminho: nada depois do subfluxo.');
     }
     if (n.type === 'menu') return showMenu(n, my);
     if (n.type === 'input') {
       const b = await bot(n, fmt(n.text)); if (!b || my !== token) return;
       waiting = { type: 'input', node: n };
       setComposer(true, n.example ? 'ex.: ' + n.example : 'Digite sua resposta');
+      autoplay(n, step => { handleText(step.text || n.example || sample[n.variable] || '123', step.port); });
       return;
     }
     if (n.type === 'action') return showAction(n);
     if (n.type === 'handoff') {
       if (n.text) { await bot(n, fmt(n.text)); if (my !== token) return; }
-      note('👤 Conversa transferida para um atendente humano', 'end');
-      return;
+      return finish('Conversa transferida para um atendente humano.');
     }
     if (n.type === 'end') {
       if (n.text) { await bot(n, fmt(n.text)); if (my !== token) return; }
-      note('Conversa encerrada. Toque em ↻ para recomeçar.', 'end');
+      return finish('Conversa encerrada. Toque em reiniciar para recomeçar.');
+    }
+  }
+
+  function finish(text) {
+    note(text, 'end');
+    if (script && !script.done) {
+      if (si < script.length) scriptEnd(false, 'a conversa terminou antes do fim do cenário.');
+      else scriptEnd(true);
     }
   }
 
@@ -179,10 +229,15 @@ function ChatPlayer(root, flow, opts) {
     if (kind === 'buttons') {
       options.forEach((o, i) => { const b = mkButton('cp-btn', o.label, () => pick(ctx, i)); group.appendChild(b); ctx.buttons.push(b); });
     } else {
-      group.appendChild(mkButton('cp-btn', '☰  ' + (n.listButton || 'Ver opções'), () => openSheet(ctx)));
+      group.appendChild(mkButton('cp-btn cp-list', n.listButton || 'Ver opções', () => openSheet(ctx)));
     }
     waiting = ctx;
     setComposer(true, 'Escolha uma opção');
+    autoplay(n, step => {
+      const i = options.findIndex(o => 'opt:' + o.id === step.port);
+      if (i < 0) scriptEnd(false, 'a opção do cenário não existe mais em "' + n.title + '".');
+      else pick(ctx, i);
+    });
   }
 
   function pick(ctx, i, fromText) {
@@ -193,6 +248,7 @@ function ChatPlayer(root, flow, opts) {
     if (ctx.buttons[i]) ctx.buttons[i].classList.add('cp-chosen');
     waiting = null; setComposer(false); autoSteps = 0;
     if (!fromText) addBubble('user', esc(o.label));
+    emit(ctx.node, 'opt:' + o.id);
     if (o.next) go(o.next); else note('Esta opção ainda não tem destino no fluxo.', 'warn');
   }
 
@@ -203,21 +259,25 @@ function ChatPlayer(root, flow, opts) {
     const hasCases = n.cases && n.cases.length;
     sim.appendChild(Object.assign(document.createElement('span'), { textContent: hasCases ? 'Simular cenário:' : 'Simular resultado:' }));
     const results = hasCases
-      ? n.cases.map(c => [c.label || 'Cenário', 'cp-chip cp-case', c.next]).concat([['✗ Falha / não encontrado', 'cp-chip cp-fail', n.onFailure]])
-      : [['✓ Sucesso', 'cp-chip cp-ok', n.onSuccess], ['✗ Falha', 'cp-chip cp-fail', n.onFailure]];
-    results.forEach(([label, cls, dest]) => {
+      ? n.cases.map(c => [c.label || 'Cenário', 'cp-chip cp-case', c.next, 'case:' + c.id]).concat([['Falha / não encontrado', 'cp-chip cp-fail', n.onFailure, 'failure']])
+      : [['Sucesso', 'cp-chip cp-ok', n.onSuccess, 'success'], ['Falha', 'cp-chip cp-fail', n.onFailure, 'failure']];
+    const chips = {};
+    results.forEach(([label, cls, dest, port]) => {
       const chip = mkButton(cls, label, () => {
         if (sim.classList.contains('cp-used')) return;
         chip.classList.add('cp-chosen');
         sim.classList.add('cp-used'); waiting = null; setComposer(false); autoSteps = 0;
+        emit(n, port);
         if (dest) go(dest); else note('Sem destino definido para este resultado.', 'warn');
       });
+      chips[port] = chip;
       sim.appendChild(chip);
     });
     chat.appendChild(sim); scroll();
     waiting = { type: 'action', node: n };
     setComposer(false);
     input.placeholder = 'Escolha o resultado simulado';
+    autoplay(n, step => { if (chips[step.port]) chips[step.port].click(); else scriptEnd(false, 'o resultado do cenário não existe mais em "' + n.title + '".'); });
   }
 
   function openSheet(ctx) {
@@ -249,7 +309,7 @@ function ChatPlayer(root, flow, opts) {
     await bot(null, fmt(settings.fallbackText || 'Não entendi. Por favor, escolha uma das opções.'));
   }
 
-  function handleText(v) {
+  function handleText(v, forcedPort) {
     const w = waiting;
     autoSteps = 0;
     addBubble('user', esc(v));
@@ -261,12 +321,16 @@ function ChatPlayer(root, flow, opts) {
     }
     if (w.type === 'input') {
       const n = w.node;
-      if (valid(n.validation, v)) {
+      const ok = forcedPort ? forcedPort === 'next' : valid(n.validation, v);
+      if (ok) {
         if (n.variable) vars[n.variable] = (n.validation === 'cnpj' || n.validation === 'cpf' || n.validation === 'number') ? v.replace(/\D/g, '') : v.trim();
         waiting = null; setComposer(false);
+        emit(n, 'next', v);
         if (n.next) go(n.next); else note('Este passo não tem próximo nó.', 'end');
       } else if (n.invalid) {
-        waiting = null; setComposer(false); go(n.invalid);
+        waiting = null; setComposer(false);
+        emit(n, 'invalid', v);
+        go(n.invalid);
       } else fallback();
     }
   }
@@ -281,7 +345,8 @@ function ChatPlayer(root, flow, opts) {
 
   function restart() {
     token++; timers.forEach(clearTimeout); timers = [];
-    vars = {}; waiting = null; autoSteps = 0; closeSheet();
+    vars = {}; waiting = null; autoSteps = 0; stack = []; si = 0; closeSheet();
+    if (script) script.done = false;
     chat.innerHTML = ''; setComposer(false);
     const start = opts.startAt || settings.startNode || (flow.nodes && flow.nodes[0] && flow.nodes[0].id);
     if (start) go(start); else note('O fluxo não tem nó inicial.', 'warn');

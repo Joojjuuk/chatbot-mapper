@@ -25,9 +25,9 @@ var PLAYER_CSS = `
 .cp-show-nodes .cp-tag{display:block}
 .cp-btns{display:flex;flex-direction:column;gap:4px;margin-top:4px;width:100%;min-width:200px}
 .cp-btn{border:0;background:var(--cp-bot);color:var(--cp-btn);font:inherit;font-weight:600;padding:9px 10px;border-radius:9px;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,.12);text-align:center}
-.cp-btn:hover{background:#f4fbfa}.cp-used .cp-btn{opacity:.55;cursor:default;pointer-events:none}.cp-used .cp-btn.cp-chosen{opacity:1;background:#e5f6f3}
+.cp-btn:hover{background:#f4fbfa}.cp-btn.cp-list:before{content:"";display:inline-block;width:14px;height:10px;margin-right:8px;vertical-align:-1px;border-top:2px solid currentColor;border-bottom:2px solid currentColor;background:linear-gradient(currentColor,currentColor) center/100% 2px no-repeat}.cp-used .cp-btn{opacity:.55;cursor:default;pointer-events:none}.cp-used .cp-btn.cp-chosen{opacity:1;background:#e5f6f3}
 .cp-note{align-self:center;max-width:92%;text-align:center;font-size:12px;color:#54656f;background:rgba(255,244,196,.95);border-radius:8px;padding:5px 10px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
-.cp-note.cp-end{background:rgba(225,232,236,.95)}.cp-note.cp-warn{background:#ffe3e0;color:#8a1c12}
+.cp-note.cp-end{background:rgba(225,232,236,.95)}.cp-note.cp-warn{background:#ffe3e0;color:#8a1c12}.cp-note.cp-sf{background:#e6ecff;color:#1d3a8a;font-weight:600}
 .cp-sim{align-self:center;display:flex;gap:6px;align-items:center;font-size:12px;color:var(--cp-mute);flex-wrap:wrap;justify-content:center}
 .cp-chip{border:1px solid #b7c4c9;background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;color:#26343b}
 .cp-chip.cp-case{border-color:#8fcfc7;color:#0b6b61}.cp-chip:hover{background:#eef7f6}.cp-chip.cp-ok{border-color:#86c9a3;color:#1d7a46}.cp-chip.cp-fail{border-color:#e8a7a0;color:#a3281d}
@@ -37,7 +37,7 @@ var PLAYER_CSS = `
 .cp-typing i:nth-child(2){animation-delay:.15s}.cp-typing i:nth-child(3){animation-delay:.3s}
 .cp-composer{display:flex;gap:8px;padding:8px 10px 12px;background:var(--cp-bg);flex:none}
 .cp-composer input{flex:1;border:0;border-radius:22px;padding:11px 14px;font:inherit;background:#fff;outline:none;min-width:0;box-shadow:0 1px 1px rgba(0,0,0,.1)}
-.cp-composer button{width:42px;height:42px;border:0;border-radius:50%;background:var(--cp-btn);color:#fff;cursor:pointer;font-size:17px;flex:none}
+.cp-composer button{width:42px;height:42px;border:0;border-radius:50%;background:var(--cp-btn);color:#fff;cursor:pointer;flex:none;display:grid;place-items:center}
 .cp-composer button:disabled{background:#9db7b3;cursor:default}
 .cp-sheet{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;z-index:5}
 .cp-sheet.cp-open{display:flex}
