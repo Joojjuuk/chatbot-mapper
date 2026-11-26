@@ -39,7 +39,7 @@
   const counter = key => '<span class="counter" data-counter="' + esc(key) + '"></span>';
 
   function textLabel(type) {
-    return { message: 'Mensagem do bot', menu: 'Texto do menu', input: 'Pergunta ao cliente', action: 'O que o sistema faz', handoff: 'Mensagem antes de transferir (opcional)', end: 'Mensagem final (opcional)' }[type];
+    return { message: 'Mensagem do bot', menu: 'Texto do menu', input: 'Pergunta ao cliente', action: 'O que o sistema faz', handoff: 'Mensagem antes de transferir (opcional)', end: 'Mensagem final (opcional)', call: 'Observação', return: 'Observação' }[type];
   }
 
   /* ---------- nó ---------- */

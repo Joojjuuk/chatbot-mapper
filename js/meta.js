@@ -52,6 +52,9 @@
     if (node.type === 'message' && node.template && node.template.enabled && !String(node.template.name || '').trim()) {
       warn('Enviado como template: informe o nome do template.');
     }
+    if (node.type === 'message' && node.template && node.template.enabled && node.template.approval === 'rejected') {
+      warn('Template rejeitado pela Meta: ajuste o texto e reenvie para aprovação.');
+    }
     if (node.type === 'input' && !String(node.variable || '').trim()) warn('Informe o nome da variável que guarda a resposta.');
     if ((node.type === 'handoff' || node.type === 'end') && chars(text) > LIMITS.textBody) err('Texto acima de ' + LIMITS.textBody + ' caracteres.');
 
@@ -123,18 +126,20 @@
       if (i < 0) { vars.push(k); i = vars.length - 1; }
       return '{{' + (i + 1) + '}}';
     });
-    return { name: node.template.name, category: node.template.category || 'utility', language: 'pt_BR', body, variables: vars };
+    const t = node.template || {};
+    return { name: t.name || '', category: t.category || 'utility', language: t.language || 'pt_BR', approval: t.approval || 'draft', body, variables: vars };
   }
 
   /* Mensagem pronta para a API + rotas de resposta, de um nó. */
   function buildNode(node) {
-    const r = { node: node.id, title: node.title, type: node.type, status: node.status, kind: node.type, payload: null, routes: {}, issues: validateNode(node) };
+    const r = { node: node.id, title: node.title, type: node.type, status: node.status, subflow: node.subflow || null, kind: node.type, payload: null, routes: {}, issues: validateNode(node) };
     switch (node.type) {
       case 'message':
         if (node.template && node.template.enabled) {
           r.kind = 'template';
           r.template = toTemplate(node);
-          r.payload = Object.assign(base('template'), { template: { name: node.template.name || '', language: { code: 'pt_BR' } } });
+          r.payload = Object.assign(base('template'), { template: { name: node.template.name || '', language: { code: node.template.language || 'pt_BR' } } });
+          if (r.template.variables.length) r.payload.template.components = [{ type: 'body', parameters: r.template.variables.map(v => ({ type: 'text', text: '{{' + v + '}}' })) }];
         } else {
           r.kind = 'text'; r.payload = textPayload(node.text || '');
         }
@@ -155,13 +160,20 @@
         r.kind = 'action';
         r.action = { system: node.system || '', description: node.text || '' };
         if (node.cases && node.cases.length) {
-          r.action.cases = node.cases.map(c => ({ id: c.id, label: c.label }));
+          r.action.cases = node.cases.map(c => ({ id: c.id, label: c.label, when: (c.when || []).map(w => ({ field: w.field, op: w.op, value: w.value })) }));
           r.routes = {};
           node.cases.forEach(c => { r.routes['case:' + c.id] = c.next || null; });
           r.routes.failure = node.onFailure || null;
         } else {
           r.routes = { success: node.onSuccess || null, failure: node.onFailure || null };
         }
+        break;
+      case 'call':
+        r.kind = 'call'; r.call = { subflow: node.target || null };
+        r.routes = { next: node.next || null };
+        break;
+      case 'return':
+        r.kind = 'return'; r.routes = { return: 'caller' };
         break;
       case 'handoff':
         r.kind = 'handoff'; r.payload = node.text ? textPayload(node.text) : null; r.routes = {};

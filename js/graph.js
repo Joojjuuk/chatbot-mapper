@@ -9,7 +9,9 @@
     input: '<svg ' + SVG_ATTR + '><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 12h5"/></svg>',
     action: '<svg ' + SVG_ATTR + '><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg>',
     handoff: '<svg ' + SVG_ATTR + '><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>',
-    end: '<svg ' + SVG_ATTR + '><path d="M6 3v18M6 4h12l-2 4 2 4H6"/></svg>'
+    end: '<svg ' + SVG_ATTR + '><path d="M6 3v18M6 4h12l-2 4 2 4H6"/></svg>',
+    call: '<svg ' + SVG_ATTR + '><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14"/></svg>',
+    return: '<svg ' + SVG_ATTR + '><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>'
   };
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

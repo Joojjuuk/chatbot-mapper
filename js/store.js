@@ -18,7 +18,9 @@
   function load(f, opts) {
     opts = opts || {};
     flow = Flow.normalize(f);
-    if (flow.nodes.some(n => n._needsLayout)) Flow.autoLayout(flow);
+    [null].concat(flow.subflows.map(x => x.id)).forEach(scope => {
+      if (Flow.scopeNodes(flow, scope).some(n => n._needsLayout)) Flow.autoLayout(flow, scope);
+    });
     undoStack = []; redoStack = [];
     lastCoalesce = { key: null, at: 0 };
     emit('load', { silent: !!opts.silent });
@@ -85,6 +87,7 @@
   function restore() {
     try {
       const raw = localStorage.getItem(KEY);
+      if (!raw) return null;
       return raw ? JSON.parse(raw) : null;
     } catch (e) { return null; }
   }
@@ -98,5 +101,32 @@
     load(parsed);
   }
 
-  root.Store = { on, get, load, update, checkpoint, undo, redo, canUndo, canRedo, save, restore, toJSON, importText };
+  /* ---------- versões salvas (localStorage) ---------- */
+  const VERSIONS_KEY = 'chatbot-mapper:versions';
+  function versions() {
+    try { return JSON.parse(localStorage.getItem(VERSIONS_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveVersion(name) {
+    const list = versions();
+    list.unshift({ id: 'v' + Date.now().toString(36), name: name || ('Versão de ' + new Date().toLocaleString('pt-BR')), at: new Date().toISOString(), flowName: flow.meta.name, flow: JSON.parse(toJSON()) });
+    while (list.length > 20) list.pop();
+    localStorage.setItem(VERSIONS_KEY, JSON.stringify(list)); // pode lançar QuotaExceededError: quem chama mostra o erro
+    return list[0];
+  }
+  function deleteVersion(id) {
+    localStorage.setItem(VERSIONS_KEY, JSON.stringify(versions().filter(v => v.id !== id)));
+  }
+
+  /* ---------- área de transferência entre fluxos ---------- */
+  const CLIP_KEY = 'chatbot-mapper:clipboard';
+  function setClipboard(clip) { try { localStorage.setItem(CLIP_KEY, JSON.stringify(clip)); return true; } catch (e) { return false; } }
+  function getClipboard() { try { return JSON.parse(localStorage.getItem(CLIP_KEY) || 'null'); } catch (e) { return null; } }
+
+  /* ---------- nome de quem edita/comenta ---------- */
+  const AUTHOR_KEY = 'chatbot-mapper:author';
+  function author() { try { return localStorage.getItem(AUTHOR_KEY) || ''; } catch (e) { return ''; } }
+  function setAuthor(v) { try { localStorage.setItem(AUTHOR_KEY, String(v || '').trim()); } catch (e) { /* ignora */ } }
+
+  root.Store = { on, get, load, update, checkpoint, undo, redo, canUndo, canRedo, save, restore, toJSON, importText,
+    versions, saveVersion, deleteVersion, setClipboard, getClipboard, author, setAuthor };
 })(window);
