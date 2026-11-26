@@ -181,7 +181,7 @@ function ChatPlayer(root, flow, opts) {
       if (!sf || !sf.start) { note('Este passo chama um subfluxo que não existe ou não tem início.', 'warn'); return; }
       if (stack.length >= 8) { note('Subfluxos encadeados demais (possível recursão).', 'warn'); return; }
       stack.push(n.next || null);
-      note('↳ ' + sf.name, 'sf');
+      note('Subfluxo: ' + sf.name, 'sf');
       return go(sf.start);
     }
     if (n.type === 'return') {
@@ -253,7 +253,8 @@ function ChatPlayer(root, flow, opts) {
   }
 
   function showAction(n) {
-    note('⚙ ' + (n.system ? n.system + ' · ' : '') + (n.text || 'Consulta ao sistema'));
+    const sysNote = note((n.system ? n.system + ' · ' : '') + (n.text || 'Consulta ao sistema'), 'sys');
+    sysNote.insertAdjacentHTML('afterbegin', '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg> ');
     const sim = document.createElement('div');
     sim.className = 'cp-sim';
     const hasCases = n.cases && n.cases.length;

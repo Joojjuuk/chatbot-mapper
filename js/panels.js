@@ -43,7 +43,7 @@
     if (!b) return;
     if (!lastRun) { b.hidden = true; return; }
     const fails = Object.values(lastRun.res).filter(r => !r.ok).length;
-    b.hidden = false; b.textContent = fails ? fails : '✓';
+    b.hidden = false; if (fails) b.textContent = fails; else b.innerHTML = Icons.get('check');
     b.className = 'badge ' + (fails ? 'err' : 'ok');
     b.title = fails ? fails + ' cenário(s) falhando' : 'Todos os cenários passaram';
   }

@@ -166,6 +166,7 @@
     if (source !== 'panels' && (tab === 'tests' || tab === 'data')) Panels.render(tab);
     Panels.render('review');
     if (source !== 'topbar') $('#flow-name').value = flow.meta.name;
+    $('#flow-name').title = flow.meta.name;
     renderCrumbs(); renderFilters(); renderBulkbar();
     $('#btn-undo').disabled = !Store.canUndo();
     $('#btn-redo').disabled = !Store.canRedo();

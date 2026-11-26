@@ -4,7 +4,8 @@
   'use strict';
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const NODE_W = 256, LANE_HEAD = 52, LANE_FOOT = 26, COLLAPSED_H = 116, PAD_X = 56;
+  const NODE_W = 256, LANE_HEAD = 52, LANE_FOOT = 26, COLLAPSED_H = 116, PAD_X = 56, FAR_K = 0.55;
+  let far = false;
 
   let host, world, lanesEl, nodesEl, svg, zoomLabel, marqueeEl = null;
   let view = { x: 80, y: 70, k: 1 };
@@ -61,13 +62,19 @@
   let viewRaf = 0;
   function applyView() {
     world.style.transform = 'translate(' + view.x + 'px,' + view.y + 'px) scale(' + view.k + ')';
-    world.style.setProperty('--inv', Math.min(2.2, Math.max(1, 0.62 / view.k)).toFixed(3));
+    const sc = 1 / view.k;
+    world.style.setProperty('--sc', sc.toFixed(3));
+    world.style.setProperty('--inv', Math.min(3, Math.max(1, sc)).toFixed(3));
+    world.style.setProperty('--lw', Math.max(5, 4 * sc).toFixed(2) + 'px');
+    world.style.setProperty('--cw', Math.max(9, 8 * sc).toFixed(2) + 'px');
+    const isFar = view.k < FAR_K;
+    if (isFar !== far) { far = isFar; host.classList.toggle('far', far); if (Store.get()) render(); }
     if (zoomLabel) zoomLabel.textContent = Math.round(view.k * 100) + '%';
     if (cb.onViewChange && !viewRaf) viewRaf = requestAnimationFrame(() => { viewRaf = 0; cb.onViewChange(); });
   }
 
   function zoomAt(cx, cy, k) {
-    k = Math.max(0.2, Math.min(1.8, k));
+    k = Math.max(0.1, Math.min(1.8, k));
     const r = host.getBoundingClientRect();
     const wx = (cx - r.left - view.x) / view.k, wy = (cy - r.top - view.y) / view.k;
     view.k = k; view.x = cx - r.left - wx * k; view.y = cy - r.top - wy * k;
@@ -86,11 +93,13 @@
   function fit() {
     const b = bounds();
     if (!b) return;
-    const top = host.querySelector('#map-top');
-    const R = host.getBoundingClientRect(), padX = 40, padTop = (top ? top.offsetHeight : 40) + 26, padBottom = 70;
-    const k = Math.max(0.25, Math.min(1, (R.width - padX * 2) / b.w, (R.height - padTop - padBottom) / b.h));
+    const top = host.querySelector('#map-top'), mm = host.querySelector('#minimap'), hud = host.querySelector('#map-hud');
+    const R = host.getBoundingClientRect();
+    const mmW = mm && mm.offsetParent ? mm.offsetWidth + 24 : 24;
+    const padL = 24, padR = mmW, padTop = (top ? top.offsetHeight : 40) + 24, padBottom = (hud ? Math.min(hud.offsetHeight, 64) : 60) + 12;
+    const k = Math.max(0.12, Math.min(1, (R.width - padL - padR) / b.w, (R.height - padTop - padBottom) / b.h));
     view.k = k;
-    view.x = (R.width - b.w * k) / 2 - b.x * k;
+    view.x = padL + (R.width - padL - padR - b.w * k) / 2 - b.x * k;
     view.y = padTop + (R.height - padTop - padBottom - b.h * k) / 2 - b.y * k;
     applyView();
   }
@@ -242,7 +251,7 @@
       '<span class="n-type" title="' + esc(Flow.TYPES[n.type].label) + '">' + Icons.get(n.type) + '</span></div>';
     if (n.type === 'call') {
       const sf = Flow.subflow(flow, n.target);
-      html += '<div class="n-call">' + (sf ? '<span>Baldeação: <b>' + esc(sf.name) + '</b></span><button type="button" class="linkbtn" data-open-scope="' + esc(sf.id) + '">Abrir</button>' : '<span>Escolha o subfluxo no painel.</span>') + '</div>';
+      html += '<div class="n-call">' + (sf ? '<span>Baldeação para <b>' + esc(sf.name) + '</b></span><button type="button" class="linkbtn" data-open-scope="' + esc(sf.id) + '">Abrir</button>' : '<span>Escolha o subfluxo no painel.</span>') + '</div>';
     } else {
       html += '<div class="n-text' + (pv ? '' : ' empty') + '">' + (pv ? esc(pv).replace(/\{\{\s*([\w.]+)\s*\}\}/g, '<code>$1</code>').replace(/\*([^*\n]+)\*/g, '<b>$1</b>').replace(/(^|[\s(>])_([^_\n]+)_(?=$|[\s).,!?<])/g, '$1<i>$2</i>') : 'Sem texto ainda') + '</div>';
     }

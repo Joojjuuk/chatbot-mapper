@@ -34,6 +34,7 @@ Versão maior: o arquivo de fluxo passa para o schema `chatbot-mapper/2` (arquiv
 
 ### Fixed
 - O simulador não rouba mais o foco de um campo em que a pessoa está digitando.
+- Contraste do botão e destaque do simulador (AA).
 
 ## [1.0.0] - 2026-11-25
 

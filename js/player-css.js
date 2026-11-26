@@ -1,7 +1,7 @@
 /* player-css.js — estilo do simulador de conversa (celular). Fica em uma string
    para poder ser embutido no HTML exportado para o cliente. Sem crases nem ${ } aqui dentro. */
 var PLAYER_CSS = `
-.cp-root{--cp-bg:#efeae2;--cp-bot:#ffffff;--cp-user:#d9fdd3;--cp-head:#0f766e;--cp-ink:#111b21;--cp-mute:#667781;--cp-accent:#0e8f83;--cp-btn:#0b7a70;
+.cp-root{--cp-bg:#efeae2;--cp-bot:#ffffff;--cp-user:#d9fdd3;--cp-head:#0f766e;--cp-ink:#111b21;--cp-mute:#667781;--cp-accent:#0b7065;--cp-btn:#0a6c62;
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;color:var(--cp-ink);width:100%;height:100%;display:flex;justify-content:center;align-items:center}
 .cp-phone{position:relative;display:flex;flex-direction:column;width:100%;max-width:380px;height:100%;max-height:720px;min-height:420px;background:var(--cp-bg);
   border-radius:26px;overflow:hidden;box-shadow:0 0 0 8px #101820,0 18px 40px rgba(16,24,32,.35)}

@@ -274,7 +274,7 @@
   function reviewHTML(flow) {
     const clean = clientCopy(flow);
     return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Revisão — ' + esc(flow.meta.name) + '</title>' +
-      '<style>' + REVIEW_CSS + '\n' + PLAYER_CSS + '</style></head><body><div id="app"></div>' +
+      '<style>' + fontFaceCSS() + REVIEW_CSS + '\n' + PLAYER_CSS + '</style></head><body><div id="app"></div>' +
       '<script>\nvar FLOW = ' + safe(clean) + ';\n' + ChatPlayer.toString() + '\n' + ReviewPage.toString() + '\n' +
       'function values(){var p=(FLOW.personas||[]).filter(function(x){return x.id===FLOW.settings.persona;})[0];return p?p.values:{};}\n' +
       'ReviewPage(document.getElementById("app"),FLOW,{player:function(el,startAt){return ChatPlayer(el,FLOW,{delay:450,startAt:startAt,values:values()});}});\n</scr' + 'ipt></body></html>';

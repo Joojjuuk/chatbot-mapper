@@ -8,7 +8,7 @@ var REVIEW_CSS = `
   --ink:#111923;--ink2:#334050;--mute:#556070;--line:#d6dbe1;--ground:#eceef1;--panel:#fff;--sign:#0d1b2e;--ok:#0b7a40;--okbg:#e3f5ea;--warn:#a85800;--warnbg:#fff3dc}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--ground);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{background:var(--ground);color:var(--ink);font:15.5px/1.5 "Barlow",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums}
 button,input,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--c1);outline-offset:2px}
 .rv-top{background:var(--sign);color:#fff;padding:18px 22px 16px}
@@ -33,10 +33,13 @@ button,input,textarea{font:inherit;color:inherit}
 .rv-scope:first-child{margin-top:0}
 .rv-lane{display:flex;align-items:center;gap:8px;margin:18px 0 8px;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
 .rv-rd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--lc,var(--c0));color:#fff;font-size:13px}
-.rv-card{background:var(--panel);border:2px solid var(--lc,var(--line));border-radius:8px;padding:14px 16px;margin-bottom:12px}
-.rv-card.done-a{box-shadow:0 0 0 3px var(--okbg)}
-.rv-card.done-c{box-shadow:0 0 0 3px var(--warnbg)}
-.rv-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.rv-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:0 16px 14px;margin-bottom:12px;overflow:hidden}
+.rv-card.done-a{border:2.5px solid var(--ok)}
+.rv-card.done-c{border:2.5px solid var(--warn)}
+.rv-h{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 -16px 4px;padding:9px 16px;background:color-mix(in srgb,var(--lc,var(--c0)) 9%,#fff);border-bottom:1px solid color-mix(in srgb,var(--lc,var(--c0)) 25%,#fff)}
+.rv-dot{width:12px;height:12px;border-radius:50%;background:var(--lc,var(--c0));flex:none}
+.rv-state{margin-left:auto;font-size:13px;font-weight:700}
+.done-a .rv-state{color:var(--ok)}.done-c .rv-state{color:var(--warn)}
 .rv-h b{font-size:16.5px}
 .rv-h small{color:var(--mute);font-size:13.5px}
 .rv-n{font-weight:700;color:var(--mute);font-size:13.5px}
@@ -100,7 +103,7 @@ function ReviewPage(root, flow, opts) {
     const g = groups[n.group], it = state.items[n.id] || {};
     const showText = n.text && n.type !== 'action' && n.type !== 'call' && n.type !== 'return';
     return '<article class="rv-card' + (it.decision === 'approved' ? ' done-a' : it.decision === 'changes' ? ' done-c' : '') + '" data-node="' + esc(n.id) + '" style="--lc:var(--' + (g ? g.g.color : 'c0') + ')">' +
-      '<div class="rv-h"><span class="rv-n">' + num + '.</span><b>' + esc(n.title) + '</b><small>' + esc(TYPE[n.type] || '') + ' · hoje: ' + esc(STATUS[n.status] || '') + '</small></div>' +
+      '<div class="rv-h"><span class="rv-dot" aria-hidden="true"></span><span class="rv-n">' + num + '.</span><b>' + esc(n.title) + '</b><small>' + esc(TYPE[n.type] || '') + ' · hoje: ' + esc(STATUS[n.status] || '') + '</small><span class="rv-state">' + (it.decision === 'approved' ? 'Aprovado por você' : it.decision === 'changes' ? 'Ajuste pedido' : '') + '</span></div>' +
       (showText ? '<div class="rv-wa"><div class="rv-bub">' + fmt(n.text) + '</div></div>' : '') + detail(n) +
       '<div class="rv-dec"><button type="button" class="rv-btn ap" data-d="approved" aria-pressed="' + (it.decision === 'approved') + '">Aprovar</button>' +
       '<button type="button" class="rv-btn ch" data-d="changes" aria-pressed="' + (it.decision === 'changes') + '">Pedir ajuste</button>' +
@@ -149,6 +152,7 @@ function ReviewPage(root, flow, opts) {
       it.decision = it.decision === d.dataset.d ? '' : d.dataset.d;
       art.querySelectorAll('[data-d]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === it.decision)));
       art.classList.toggle('done-a', it.decision === 'approved'); art.classList.toggle('done-c', it.decision === 'changes');
+      art.querySelector('.rv-state').textContent = it.decision === 'approved' ? 'Aprovado por você' : it.decision === 'changes' ? 'Ajuste pedido' : '';
       if (it.decision === 'changes') art.querySelector('.rv-cm').focus();
       save(); progress();
       return;
