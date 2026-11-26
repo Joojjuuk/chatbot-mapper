@@ -1,0 +1,1404 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-26T18:26:52+00:00",
+  "title": "Design System: Chatbot Mapper",
+  "extensions": {
+    "colorMeta": {
+      "sign-navy": {
+        "role": "primary",
+        "displayName": "Azul-Marinho de Placa",
+        "canonical": "#0d1b2e",
+        "oklch": "oklch(22.0% 0.042 256.4)",
+        "tonalRamp": [
+          "#080b11",
+          "#1e2631",
+          "#364355",
+          "#526279",
+          "#72849c",
+          "#97a6bb",
+          "#bfcad9",
+          "#e9eff7"
+        ]
+      },
+      "sign-navy-raised": {
+        "role": "primary",
+        "displayName": "Placa Elevada",
+        "canonical": "#16273f",
+        "oklch": "oklch(27.1% 0.050 257.1)",
+        "tonalRamp": [
+          "#070b12",
+          "#1c2633",
+          "#344358",
+          "#4f627e",
+          "#6f84a1",
+          "#95a6bf",
+          "#becadc",
+          "#e8eff9"
+        ]
+      },
+      "sign-ink": {
+        "role": "primary",
+        "displayName": "Texto de Placa",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "sign-mute": {
+        "role": "primary",
+        "displayName": "Texto Secundário de Placa",
+        "canonical": "#b7c3d4",
+        "oklch": "oklch(81.3% 0.027 257.0)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252d",
+          "#3b434e",
+          "#576271",
+          "#788393",
+          "#9ca6b3",
+          "#c3cad3",
+          "#ebeff4"
+        ]
+      },
+      "sign-rule": {
+        "role": "primary",
+        "displayName": "Régua de Placa",
+        "canonical": "#2a3b55",
+        "oklch": "oklch(35.0% 0.051 258.7)",
+        "tonalRamp": [
+          "#070b12",
+          "#1d2533",
+          "#344358",
+          "#50627e",
+          "#7084a1",
+          "#95a6c0",
+          "#becadc",
+          "#e8eff9"
+        ]
+      },
+      "map-ground": {
+        "role": "neutral",
+        "displayName": "Map Ground",
+        "canonical": "#eceef1",
+        "oklch": "oklch(94.8% 0.005 258.3)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a3a5a7",
+          "#c8c9cb",
+          "#eeeeef"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "panel-2": {
+        "role": "neutral",
+        "displayName": "Panel 2",
+        "canonical": "#f5f6f8",
+        "oklch": "oklch(97.3% 0.003 264.5)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a6",
+          "#c8c9ca",
+          "#eeeeef"
+        ]
+      },
+      "panel-3": {
+        "role": "neutral",
+        "displayName": "Panel 3",
+        "canonical": "#e9ecf0",
+        "oklch": "oklch(94.2% 0.006 255.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a8",
+          "#c8c9cb",
+          "#edeef0"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#111923",
+        "oklch": "oklch(21.1% 0.023 254.3)",
+        "tonalRamp": [
+          "#090b0e",
+          "#21252b",
+          "#3b434c",
+          "#58626f",
+          "#798390",
+          "#9da6b1",
+          "#c3cad2",
+          "#ebeff3"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "#334050",
+        "oklch": "oklch(36.7% 0.033 253.9)",
+        "tonalRamp": [
+          "#080b0f",
+          "#1f262e",
+          "#384350",
+          "#556374",
+          "#758496",
+          "#9aa6b6",
+          "#c1cad5",
+          "#eaeff5"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Mute",
+        "canonical": "#556070",
+        "oklch": "oklch(48.6% 0.029 257.7)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252d",
+          "#3a434f",
+          "#576272",
+          "#788394",
+          "#9ca6b4",
+          "#c3cad4",
+          "#ebeff5"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "canonical": "#d6dbe1",
+        "oklch": "oklch(88.9% 0.010 252.8)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232528",
+          "#3f4246",
+          "#5d6267",
+          "#7e8388",
+          "#a1a5aa",
+          "#c7c9cd",
+          "#edeff0"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Line Strong",
+        "canonical": "#aeb5bf",
+        "oklch": "oklch(77.1% 0.016 257.2)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#22252a",
+          "#3e4249",
+          "#5b626b",
+          "#7c838c",
+          "#a0a5ae",
+          "#c5c9cf",
+          "#eceff2"
+        ]
+      },
+      "line-c1-blue": {
+        "role": "secondary",
+        "displayName": "Linha Azul",
+        "canonical": "#1f5bd6",
+        "oklch": "oklch(51.2% 0.199 262.3)",
+        "tonalRamp": [
+          "#010825",
+          "#031e5a",
+          "#093796",
+          "#1955d0",
+          "#3b7af7",
+          "#6ca2ff",
+          "#a1c9ff",
+          "#d8efff"
+        ]
+      },
+      "line-c2-green": {
+        "role": "secondary",
+        "displayName": "Linha Verde",
+        "canonical": "#0b8a48",
+        "oklch": "oklch(55.6% 0.142 152.5)",
+        "tonalRamp": [
+          "#001003",
+          "#002f10",
+          "#005220",
+          "#007736",
+          "#299a57",
+          "#68ba81",
+          "#a2d9b0",
+          "#d9f8e1"
+        ]
+      },
+      "line-c3-red": {
+        "role": "secondary",
+        "displayName": "Linha Vermelha",
+        "canonical": "#d42b2b",
+        "oklch": "oklch(56.6% 0.204 26.8)",
+        "tonalRamp": [
+          "#1f0000",
+          "#4f0001",
+          "#850000",
+          "#ba0010",
+          "#e33c38",
+          "#fc756a",
+          "#ffaca1",
+          "#ffdfd8"
+        ]
+      },
+      "line-c4-yellow": {
+        "role": "secondary",
+        "displayName": "Linha Amarela",
+        "canonical": "#e3a000",
+        "oklch": "oklch(75.1% 0.156 78.6)",
+        "tonalRamp": [
+          "#160800",
+          "#3b1d00",
+          "#653500",
+          "#8f5100",
+          "#b47300",
+          "#d09a39",
+          "#e9c387",
+          "#ffebcb"
+        ]
+      },
+      "line-c5-lilac": {
+        "role": "secondary",
+        "displayName": "Linha Lilás",
+        "canonical": "#8a45c6",
+        "oklch": "oklch(53.9% 0.194 305.4)",
+        "tonalRamp": [
+          "#11031f",
+          "#320f4e",
+          "#571e83",
+          "#7c36b7",
+          "#9f5bdd",
+          "#bd88f4",
+          "#dab7ff",
+          "#f8e5ff"
+        ]
+      },
+      "line-c6-teal": {
+        "role": "secondary",
+        "displayName": "Linha Turquesa",
+        "canonical": "#078fa3",
+        "oklch": "oklch(59.7% 0.103 212.1)",
+        "tonalRamp": [
+          "#000e13",
+          "#002c35",
+          "#004d5c",
+          "#007083",
+          "#1192a6",
+          "#60b3c4",
+          "#9dd4df",
+          "#d7f5fb"
+        ]
+      },
+      "line-c7-coral": {
+        "role": "secondary",
+        "displayName": "Linha Coral",
+        "canonical": "#e85d2c",
+        "oklch": "oklch(65.1% 0.183 38.6)",
+        "tonalRamp": [
+          "#1d0200",
+          "#4b0600",
+          "#7e0f00",
+          "#b02600",
+          "#d84f1a",
+          "#f3805b",
+          "#ffb297",
+          "#ffe2d3"
+        ]
+      },
+      "line-c8-graphite": {
+        "role": "secondary",
+        "displayName": "Linha Grafite",
+        "canonical": "#66727f",
+        "oklch": "oklch(54.7% 0.025 250.4)",
+        "tonalRamp": [
+          "#090b0e",
+          "#20262c",
+          "#3a434d",
+          "#57636f",
+          "#778491",
+          "#9ca6b2",
+          "#c3cad2",
+          "#ebeff4"
+        ]
+      },
+      "line-c0-unassigned": {
+        "role": "secondary",
+        "displayName": "Sem Linha",
+        "canonical": "#8b939c",
+        "oklch": "oklch(66.0% 0.016 251.2)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#222529",
+          "#3d4349",
+          "#5b626a",
+          "#7b838c",
+          "#9fa6ad",
+          "#c5cacf",
+          "#eceff2"
+        ]
+      },
+      "err": {
+        "role": "neutral",
+        "displayName": "Err",
+        "canonical": "#c42323",
+        "oklch": "oklch(53.1% 0.196 27.1)",
+        "tonalRamp": [
+          "#1f0001",
+          "#4e0002",
+          "#830004",
+          "#b60c16",
+          "#df423b",
+          "#f9786c",
+          "#ffada2",
+          "#ffe0d9"
+        ]
+      },
+      "err-bg": {
+        "role": "neutral",
+        "displayName": "Err Bg",
+        "canonical": "#fdeceb",
+        "oklch": "oklch(95.6% 0.019 21.6)",
+        "tonalRamp": [
+          "#0e0a0a",
+          "#2a2323",
+          "#4a3f3e",
+          "#6c5d5c",
+          "#8d7e7d",
+          "#aea1a1",
+          "#d0c7c6",
+          "#f2eded"
+        ]
+      },
+      "err-ink": {
+        "role": "neutral",
+        "displayName": "Err Ink",
+        "canonical": "#8f1616",
+        "oklch": "oklch(42.0% 0.156 27.2)",
+        "tonalRamp": [
+          "#1b0302",
+          "#470d0b",
+          "#771b18",
+          "#a8312c",
+          "#cf564c",
+          "#ea8479",
+          "#fdb4aa",
+          "#ffe3dd"
+        ]
+      },
+      "warn": {
+        "role": "neutral",
+        "displayName": "Warn",
+        "canonical": "#a85800",
+        "oklch": "oklch(54.5% 0.132 56.8)",
+        "tonalRamp": [
+          "#180600",
+          "#3f1900",
+          "#6b2e00",
+          "#974800",
+          "#bc6b22",
+          "#d9935f",
+          "#efbd9a",
+          "#ffe8d4"
+        ]
+      },
+      "warn-bg": {
+        "role": "neutral",
+        "displayName": "Warn Bg",
+        "canonical": "#fff3dc",
+        "oklch": "oklch(96.8% 0.033 83.7)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#29241b",
+          "#494132",
+          "#6a604c",
+          "#8c816c",
+          "#ada492",
+          "#cfc8bc",
+          "#f2eee7"
+        ]
+      },
+      "warn-ink": {
+        "role": "neutral",
+        "displayName": "Warn Ink",
+        "canonical": "#7a4100",
+        "oklch": "oklch(43.7% 0.103 59.3)",
+        "tonalRamp": [
+          "#150801",
+          "#391d03",
+          "#623507",
+          "#8b5119",
+          "#b0723e",
+          "#cd986f",
+          "#e7c1a4",
+          "#ffeada"
+        ]
+      },
+      "ok": {
+        "role": "neutral",
+        "displayName": "Ok",
+        "canonical": "#0b7a40",
+        "oklch": "oklch(50.9% 0.128 152.8)",
+        "tonalRamp": [
+          "#001004",
+          "#002f13",
+          "#005125",
+          "#00753b",
+          "#38985c",
+          "#6fb885",
+          "#a6d7b3",
+          "#dbf7e2"
+        ]
+      },
+      "ok-bg": {
+        "role": "neutral",
+        "displayName": "Ok Bg",
+        "canonical": "#e3f5ea",
+        "oklch": "oklch(95.4% 0.024 159.1)",
+        "tonalRamp": [
+          "#090c0a",
+          "#202723",
+          "#39453e",
+          "#56665c",
+          "#77877d",
+          "#9ba9a1",
+          "#c2ccc6",
+          "#eaf0ed"
+        ]
+      },
+      "here-yellow": {
+        "role": "tertiary",
+        "displayName": "Amarelo \"Você Está Aqui\"",
+        "canonical": "#ffc21a",
+        "oklch": "oklch(84.6% 0.169 84.9)",
+        "tonalRamp": [
+          "#150800",
+          "#3a1e00",
+          "#633700",
+          "#8c5400",
+          "#b07600",
+          "#cd9d23",
+          "#e6c57f",
+          "#ffedc7"
+        ]
+      },
+      "focus": {
+        "role": "neutral",
+        "displayName": "Azul de Foco",
+        "canonical": "#1f5bd6",
+        "oklch": "oklch(51.2% 0.199 262.3)",
+        "tonalRamp": [
+          "#010825",
+          "#031e5a",
+          "#093796",
+          "#1955d0",
+          "#3b7af7",
+          "#6ca2ff",
+          "#a1c9ff",
+          "#d8efff"
+        ]
+      },
+      "night-ground": {
+        "role": "neutral",
+        "displayName": "Ground (tema escuro)",
+        "canonical": "#0f1b2d",
+        "oklch": "oklch(22.1% 0.039 258.3)",
+        "tonalRamp": [
+          "#080b10",
+          "#1e2530",
+          "#374353",
+          "#546278",
+          "#74839a",
+          "#99a6ba",
+          "#c0cad8",
+          "#e9eff7"
+        ]
+      },
+      "night-panel": {
+        "role": "neutral",
+        "displayName": "Panel (tema escuro)",
+        "canonical": "#151b24",
+        "oklch": "oklch(22.0% 0.020 258.3)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#22252b",
+          "#3d424b",
+          "#5a626d",
+          "#7b838f",
+          "#9fa6af",
+          "#c5c9d1",
+          "#eceff3"
+        ]
+      },
+      "night-panel-2": {
+        "role": "neutral",
+        "displayName": "Panel 2 (tema escuro)",
+        "canonical": "#1b2330",
+        "oklch": "oklch(25.5% 0.027 260.0)",
+        "tonalRamp": [
+          "#090b0f",
+          "#21252d",
+          "#3b424e",
+          "#586271",
+          "#798393",
+          "#9da6b3",
+          "#c3cad3",
+          "#ebeff4"
+        ]
+      },
+      "night-panel-3": {
+        "role": "neutral",
+        "displayName": "Panel 3 (tema escuro)",
+        "canonical": "#222b38",
+        "oklch": "oklch(28.6% 0.027 257.5)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252d",
+          "#3b434e",
+          "#586271",
+          "#788393",
+          "#9da6b3",
+          "#c3cad3",
+          "#ebeff4"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Ink (tema escuro)",
+        "canonical": "#e9eef4",
+        "oklch": "oklch(94.7% 0.010 252.8)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#232528",
+          "#3f4246",
+          "#5d6267",
+          "#7e8388",
+          "#a2a5aa",
+          "#c7c9cd",
+          "#edeff0"
+        ]
+      },
+      "night-ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2 (tema escuro)",
+        "canonical": "#c5cfdb",
+        "oklch": "oklch(85.0% 0.020 252.9)",
+        "tonalRamp": [
+          "#090b0e",
+          "#21252b",
+          "#3c434b",
+          "#59626d",
+          "#7a838e",
+          "#9ea6af",
+          "#c4cad0",
+          "#eceff3"
+        ]
+      },
+      "night-mute": {
+        "role": "neutral",
+        "displayName": "Mute (tema escuro)",
+        "canonical": "#97a4b4",
+        "oklch": "oklch(71.4% 0.028 253.6)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20262d",
+          "#3a434e",
+          "#576271",
+          "#778493",
+          "#9ba6b3",
+          "#c2cad3",
+          "#ebeff4"
+        ]
+      },
+      "night-line": {
+        "role": "neutral",
+        "displayName": "Line (tema escuro)",
+        "canonical": "#283342",
+        "oklch": "oklch(31.8% 0.031 256.3)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20262e",
+          "#394350",
+          "#566273",
+          "#778395",
+          "#9ba6b5",
+          "#c2cad5",
+          "#eaeff5"
+        ]
+      },
+      "night-line-strong": {
+        "role": "neutral",
+        "displayName": "Line Strong (tema escuro)",
+        "canonical": "#3c4a5c",
+        "oklch": "oklch(40.4% 0.035 254.9)",
+        "tonalRamp": [
+          "#080b10",
+          "#1f262f",
+          "#384351",
+          "#546375",
+          "#748498",
+          "#99a6b7",
+          "#c1cad6",
+          "#eaeff6"
+        ]
+      },
+      "night-sign": {
+        "role": "neutral",
+        "displayName": "Sign (tema escuro)",
+        "canonical": "#060a12",
+        "oklch": "oklch(14.4% 0.019 261.2)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#22252a",
+          "#3d424b",
+          "#5b626c",
+          "#7c838e",
+          "#a0a5af",
+          "#c5c9d0",
+          "#eceff3"
+        ]
+      },
+      "night-sign-raised": {
+        "role": "neutral",
+        "displayName": "Sign Raised (tema escuro)",
+        "canonical": "#0f1826",
+        "oklch": "oklch(20.8% 0.031 259.0)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20252e",
+          "#3a4350",
+          "#576273",
+          "#778395",
+          "#9ca6b5",
+          "#c2cad5",
+          "#ebeff5"
+        ]
+      },
+      "night-sign-ink": {
+        "role": "neutral",
+        "displayName": "Sign Ink (tema escuro)",
+        "canonical": "#f3f6fa",
+        "oklch": "oklch(97.2% 0.006 255.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242527",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a8",
+          "#c8c9cb",
+          "#edeef0"
+        ]
+      },
+      "night-sign-mute": {
+        "role": "neutral",
+        "displayName": "Sign Mute (tema escuro)",
+        "canonical": "#9fb0c6",
+        "oklch": "oklch(75.1% 0.037 254.9)",
+        "tonalRamp": [
+          "#080b10",
+          "#1e262f",
+          "#374352",
+          "#536376",
+          "#748499",
+          "#99a6b8",
+          "#c0cad7",
+          "#e9eff6"
+        ]
+      },
+      "night-sign-rule": {
+        "role": "neutral",
+        "displayName": "Sign Rule (tema escuro)",
+        "canonical": "#1f2c40",
+        "oklch": "oklch(29.1% 0.041 258.8)",
+        "tonalRamp": [
+          "#080b11",
+          "#1e2530",
+          "#374354",
+          "#536279",
+          "#74839b",
+          "#99a6bb",
+          "#c0cad9",
+          "#e9eff7"
+        ]
+      },
+      "night-c1-blue": {
+        "role": "secondary",
+        "displayName": "Linha Azul (tema escuro)",
+        "canonical": "#5b8cff",
+        "oklch": "oklch(66.2% 0.179 264.6)",
+        "tonalRamp": [
+          "#020922",
+          "#0b1f55",
+          "#19398e",
+          "#2c57c5",
+          "#4b7bec",
+          "#77a2ff",
+          "#a9c9ff",
+          "#dcefff"
+        ]
+      },
+      "night-c2-green": {
+        "role": "secondary",
+        "displayName": "Linha Verde (tema escuro)",
+        "canonical": "#2fbf74",
+        "oklch": "oklch(71.3% 0.162 155.0)",
+        "tonalRamp": [
+          "#001103",
+          "#00310f",
+          "#00551e",
+          "#007a34",
+          "#009d55",
+          "#56bd80",
+          "#99dbaf",
+          "#d5f9e0"
+        ]
+      },
+      "night-c3-red": {
+        "role": "secondary",
+        "displayName": "Linha Vermelha (tema escuro)",
+        "canonical": "#ff5c54",
+        "oklch": "oklch(69.0% 0.200 26.5)",
+        "tonalRamp": [
+          "#1f0001",
+          "#4f0002",
+          "#840004",
+          "#b80216",
+          "#e13f3b",
+          "#fb776c",
+          "#ffaca2",
+          "#ffdfd9"
+        ]
+      },
+      "night-c4-yellow": {
+        "role": "secondary",
+        "displayName": "Linha Amarela (tema escuro)",
+        "canonical": "#ffc233",
+        "oklch": "oklch(84.7% 0.161 83.4)",
+        "tonalRamp": [
+          "#150800",
+          "#3a1e00",
+          "#623700",
+          "#8c5400",
+          "#b07600",
+          "#cc9d31",
+          "#e6c484",
+          "#ffecc9"
+        ]
+      },
+      "night-c5-lilac": {
+        "role": "secondary",
+        "displayName": "Linha Lilás (tema escuro)",
+        "canonical": "#b47eff",
+        "oklch": "oklch(70.2% 0.187 301.1)",
+        "tonalRamp": [
+          "#10041f",
+          "#2f124f",
+          "#522384",
+          "#753cb8",
+          "#9760de",
+          "#b68cf5",
+          "#d5b9ff",
+          "#f5e6ff"
+        ]
+      },
+      "night-c6-teal": {
+        "role": "secondary",
+        "displayName": "Linha Turquesa (tema escuro)",
+        "canonical": "#2cc4da",
+        "oklch": "oklch(75.5% 0.122 209.9)",
+        "tonalRamp": [
+          "#000f14",
+          "#002d37",
+          "#004f5f",
+          "#007287",
+          "#0095aa",
+          "#4ab6c8",
+          "#93d6e2",
+          "#d2f6fd"
+        ]
+      },
+      "night-c7-coral": {
+        "role": "secondary",
+        "displayName": "Linha Coral (tema escuro)",
+        "canonical": "#ff8a5c",
+        "oklch": "oklch(75.3% 0.155 41.6)",
+        "tonalRamp": [
+          "#1b0300",
+          "#461000",
+          "#752100",
+          "#a53800",
+          "#cc5c2d",
+          "#e78864",
+          "#fbb79d",
+          "#ffe5d6"
+        ]
+      },
+      "night-c8-graphite": {
+        "role": "secondary",
+        "displayName": "Linha Grafite (tema escuro)",
+        "canonical": "#9aa7b6",
+        "oklch": "oklch(72.3% 0.026 252.0)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20262c",
+          "#3a434d",
+          "#576370",
+          "#778492",
+          "#9ca6b3",
+          "#c2cad3",
+          "#ebeff4"
+        ]
+      },
+      "night-c0-unassigned": {
+        "role": "secondary",
+        "displayName": "Sem Linha (tema escuro)",
+        "canonical": "#6f7b89",
+        "oklch": "oklch(57.8% 0.026 252.3)",
+        "tonalRamp": [
+          "#090b0f",
+          "#20262c",
+          "#3a434d",
+          "#576270",
+          "#788492",
+          "#9ca6b2",
+          "#c3cad3",
+          "#ebeff4"
+        ]
+      },
+      "night-err": {
+        "role": "neutral",
+        "displayName": "Err (tema escuro)",
+        "canonical": "#ff6b61",
+        "oklch": "oklch(71.0% 0.183 26.6)",
+        "tonalRamp": [
+          "#1e0101",
+          "#4c0305",
+          "#7f060e",
+          "#b21d20",
+          "#da4942",
+          "#f47c71",
+          "#ffafa5",
+          "#ffe1da"
+        ]
+      },
+      "night-err-bg": {
+        "role": "neutral",
+        "displayName": "Err Bg (tema escuro)",
+        "canonical": "#3a1715",
+        "oklch": "oklch(25.7% 0.056 25.1)",
+        "tonalRamp": [
+          "#120808",
+          "#331f1d",
+          "#583836",
+          "#7e5551",
+          "#a17671",
+          "#c09a97",
+          "#ddc2bf",
+          "#faeae9"
+        ]
+      },
+      "night-err-ink": {
+        "role": "neutral",
+        "displayName": "Err Ink (tema escuro)",
+        "canonical": "#ffc3bd",
+        "oklch": "oklch(86.9% 0.070 25.1)",
+        "tonalRamp": [
+          "#130807",
+          "#361d1b",
+          "#5d3632",
+          "#84514d",
+          "#a8726d",
+          "#c79893",
+          "#e2c0bc",
+          "#fde9e7"
+        ]
+      },
+      "night-warn": {
+        "role": "neutral",
+        "displayName": "Warn (tema escuro)",
+        "canonical": "#ffb547",
+        "oklch": "oklch(82.4% 0.149 73.3)",
+        "tonalRamp": [
+          "#160700",
+          "#3c1c00",
+          "#673300",
+          "#924f00",
+          "#b67100",
+          "#d39844",
+          "#ebc18c",
+          "#ffeacd"
+        ]
+      },
+      "night-warn-bg": {
+        "role": "neutral",
+        "displayName": "Warn Bg (tema escuro)",
+        "canonical": "#382810",
+        "oklch": "oklch(29.0% 0.044 75.5)",
+        "tonalRamp": [
+          "#0f0a05",
+          "#2c2317",
+          "#4d3f2c",
+          "#705e45",
+          "#927f65",
+          "#b3a28c",
+          "#d3c7b8",
+          "#f4ede5"
+        ]
+      },
+      "night-warn-ink": {
+        "role": "neutral",
+        "displayName": "Warn Ink (tema escuro)",
+        "canonical": "#ffd99c",
+        "oklch": "oklch(90.4% 0.088 79.1)",
+        "tonalRamp": [
+          "#110a01",
+          "#322204",
+          "#563d0a",
+          "#7c5b1d",
+          "#9f7c41",
+          "#bea071",
+          "#dbc6a5",
+          "#f9edda"
+        ]
+      },
+      "night-ok": {
+        "role": "neutral",
+        "displayName": "Ok (tema escuro)",
+        "canonical": "#4ad48a",
+        "oklch": "oklch(77.7% 0.160 155.9)",
+        "tonalRamp": [
+          "#001103",
+          "#003110",
+          "#005521",
+          "#007a36",
+          "#009d57",
+          "#55bd82",
+          "#98dbb1",
+          "#d5f9e1"
+        ]
+      },
+      "night-ok-bg": {
+        "role": "neutral",
+        "displayName": "Ok Bg (tema escuro)",
+        "canonical": "#12301f",
+        "oklch": "oklch(28.0% 0.048 156.5)",
+        "tonalRamp": [
+          "#060d09",
+          "#1a2920",
+          "#304839",
+          "#4b6a56",
+          "#6b8b77",
+          "#92ad9b",
+          "#bccfc2",
+          "#e7f2ea"
+        ]
+      },
+      "night-focus": {
+        "role": "neutral",
+        "displayName": "Focus (tema escuro)",
+        "canonical": "#7aa2ff",
+        "oklch": "oklch(72.3% 0.143 265.4)",
+        "tonalRamp": [
+          "#040a1e",
+          "#12224c",
+          "#233d7f",
+          "#395bb1",
+          "#587ed7",
+          "#82a3ef",
+          "#b0c9ff",
+          "#e0efff"
+        ]
+      },
+      "wa-wallpaper": {
+        "role": "neutral",
+        "displayName": "Simulador WhatsApp: wallpaper",
+        "canonical": "#efeae2",
+        "oklch": "oklch(93.9% 0.012 79.8)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#272521",
+          "#45413c",
+          "#65615a",
+          "#86827a",
+          "#a8a49e",
+          "#cbc9c4",
+          "#f0eeec"
+        ]
+      },
+      "wa-bubble-bot": {
+        "role": "neutral",
+        "displayName": "Simulador WhatsApp: bubble-bot",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "wa-bubble-user": {
+        "role": "neutral",
+        "displayName": "Simulador WhatsApp: bubble-user",
+        "canonical": "#d9fdd3",
+        "oklch": "oklch(95.7% 0.067 141.1)",
+        "tonalRamp": [
+          "#070d06",
+          "#1b2a18",
+          "#31492e",
+          "#4c6b47",
+          "#6c8d67",
+          "#93ae8e",
+          "#bcd0b9",
+          "#e7f2e5"
+        ]
+      },
+      "wa-header": {
+        "role": "neutral",
+        "displayName": "Simulador WhatsApp: header",
+        "canonical": "#0f766e",
+        "oklch": "oklch(51.1% 0.086 186.4)",
+        "tonalRamp": [
+          "#000f0d",
+          "#002c29",
+          "#004e48",
+          "#017169",
+          "#39938a",
+          "#6fb4ac",
+          "#a6d4ce",
+          "#dcf5f1"
+        ]
+      },
+      "wa-action": {
+        "role": "neutral",
+        "displayName": "Simulador WhatsApp: action",
+        "canonical": "#0a6c62",
+        "oklch": "oklch(47.8% 0.082 183.6)",
+        "tonalRamp": [
+          "#000f0c",
+          "#002c27",
+          "#004d46",
+          "#137066",
+          "#3f9287",
+          "#73b3a9",
+          "#a8d4cc",
+          "#ddf4f0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "brand": {
+        "displayName": "Marca",
+        "purpose": "Nome do produto na placa."
+      },
+      "headline": {
+        "displayName": "Cabeçalho",
+        "purpose": "Cabeçalho do inspetor e dica de mapa vazio."
+      },
+      "title": {
+        "displayName": "Título de estação",
+        "purpose": "Nome do passo no card, uma linha."
+      },
+      "body": {
+        "displayName": "Corpo",
+        "purpose": "Texto base, números tabulares."
+      },
+      "body-sm": {
+        "displayName": "Corpo pequeno",
+        "purpose": "Texto da estação, portas, tabelas, legendas."
+      },
+      "control": {
+        "displayName": "Controle",
+        "purpose": "Botões, abas, trilha, chips."
+      },
+      "line-sign": {
+        "displayName": "Placa de linha",
+        "purpose": "Nome da linha em caixa alta ao lado do roundel."
+      },
+      "section-label": {
+        "displayName": "Rótulo de seção",
+        "purpose": "Títulos de seção do painel e grupos de menu."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Dicas, small, metadados."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Variáveis, valores e código."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow",
+        "value": "0 1px 2px rgba(0,0,0,.07),0 4px 14px rgba(0,0,0,.07)",
+        "dark": "0 1px 2px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.35)",
+        "purpose": "Repouso: estações e contêineres flutuantes sobre o mapa."
+      },
+      {
+        "name": "shadow-up",
+        "value": "0 2px 4px rgba(0,0,0,.09),0 12px 28px rgba(0,0,0,.14)",
+        "dark": "0 2px 6px rgba(0,0,0,.5),0 14px 34px rgba(0,0,0,.5)",
+        "purpose": "Elevado: hover de estação, menus, busca, barra em massa, toast."
+      },
+      {
+        "name": "selection-ring",
+        "value": "0 0 0 2px var(--panel),0 0 0 4.5px var(--ink),0 0 0 9px color-mix(in srgb,var(--here) 70%,transparent),var(--shadow-up)",
+        "purpose": "Estação selecionada."
+      }
+    ],
+    "motion": [
+      {
+        "name": "state",
+        "value": "150ms (background, border-color, color, box-shadow)",
+        "purpose": "Hover e pressão de controles e estações."
+      },
+      {
+        "name": "toast",
+        "value": "opacity .2s ease-out, transform .25s cubic-bezier(.2,.8,.2,1)",
+        "purpose": "Entrada do toast."
+      },
+      {
+        "name": "here-pulse",
+        "value": "1.6s ease-out infinite",
+        "purpose": "Halo amarelo da estação ativa no simulador."
+      },
+      {
+        "name": "view-fly",
+        "value": "380ms",
+        "purpose": "Animação de enquadrar/voar até estação no mapa."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animações e transições a .01ms",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-bar",
+        "value": "1180px"
+      },
+      {
+        "name": "filters-labels",
+        "value": "1300px"
+      },
+      {
+        "name": "stacked-panel",
+        "value": "980px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      }
+    ],
+    "map": {
+      "farZoomK": 0.55,
+      "edgeWidth": "max(5px, 4px/k)",
+      "edgeCasing": "max(9px, 8px/k)",
+      "edgeRouting": "retas + diagonais de 45°, chanfro 16px",
+      "nodeWidth": "256px (316px no modo distante)",
+      "columnWidth": "340px",
+      "rowGap": "32px",
+      "laneGap": "72px",
+      "laneHead": "52px",
+      "collapsedLane": "116px",
+      "failDash": "9 7",
+      "invalidDash": "1 8"
+    }
+  },
+  "components": [
+    {
+      "name": "Botão padrão",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Botão de painel: 34px, borda line-strong, 600 14px.",
+      "html": "<button class=\"ds-btn\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14M5 12h14\"/></svg>Organizar</button>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line-strong,#aeb5bf);background:var(--panel,#fff);color:var(--ink,#111923);border-radius:var(--r,6px);font:600 14px/1 var(--font);cursor:pointer;transition:background .15s,border-color .15s,color .15s}.ds-btn:hover{background:var(--panel-2,#f5f6f8);border-color:var(--ink-2,#334050)}.ds-btn:active{background:var(--panel-3,#e9ecf0)}.ds-btn:focus-visible{outline:2px solid var(--focus,#1f5bd6);outline-offset:2px}"
+    },
+    {
+      "name": "Botão primário",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação principal fora da placa: azul-marinho de placa, texto branco.",
+      "html": "<button class=\"ds-btn-primary\">Aprovar passo</button>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-btn-primary{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--sign,#0d1b2e);background:var(--sign,#0d1b2e);color:var(--sign-ink,#fff);border-radius:var(--r,6px);font:600 14px/1 var(--font);cursor:pointer;transition:background .15s}.ds-btn-primary:hover{background:var(--sign-2,#16273f);border-color:var(--sign-2,#16273f)}.ds-btn-primary:focus-visible{outline:2px solid var(--focus,#1f5bd6);outline-offset:2px}"
+    },
+    {
+      "name": "Placa de sinalização",
+      "kind": "nav",
+      "refersTo": "topbar",
+      "description": "Barra superior azul-marinho com marca, busca, ghost e primário invertido.",
+      "html": "<div class=\"ds-sign\"><span class=\"ds-brand\"><svg viewBox=\"0 0 28 28\" width=\"28\" height=\"28\"><path d=\"M3 9h7l8 10h7\" fill=\"none\" stroke=\"#1f5bd6\" stroke-width=\"3.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M3 19h7l8-10h7\" fill=\"none\" stroke=\"#d42b2b\" stroke-width=\"3.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"14\" cy=\"14\" r=\"4.2\" fill=\"#fff\" stroke=\"#0d1b2e\" stroke-width=\"2.2\"/></svg>Chatbot Mapper</span><input class=\"ds-search\" placeholder=\"Buscar estação\"><button class=\"ds-ghost\">Exportar</button><button class=\"ds-inv\">+ Passo</button></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-sign{display:flex;align-items:center;gap:10px;height:56px;padding:0 12px 0 14px;background:#0d1b2e;color:#fff;border-bottom:3px solid #2a3b55}.ds-brand{display:flex;align-items:center;gap:9px;font:700 17px/1 var(--font);letter-spacing:-.01em;margin-right:auto}.ds-search{height:36px;width:220px;border:1px solid #2a3b55;background:#16273f;color:#fff;border-radius:6px;padding:0 12px;font:15px var(--font);outline:none}.ds-search::placeholder{color:#b7c3d4}.ds-search:focus{border-color:#b7c3d4}.ds-ghost,.ds-inv{height:34px;padding:0 12px;border-radius:6px;font:600 14px/1 var(--font);cursor:pointer}.ds-ghost{background:transparent;border:1px solid transparent;color:#fff}.ds-ghost:hover{background:#16273f;border-color:#2a3b55}.ds-inv{background:#fff;color:#0d1b2e;border:1px solid #fff}.ds-inv:hover{background:#dfe6ef}.ds-sign :focus-visible{outline:2px solid #ffc21a;outline-offset:2px}"
+    },
+    {
+      "name": "Campo",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo do inspetor com rótulo forte e foco em tinta + halo azul.",
+      "html": "<label class=\"ds-fld\"><span>Texto da mensagem</span><input class=\"ds-inp\" value=\"Olá! Como posso ajudar?\"></label>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-fld{display:block;font-family:var(--font)}.ds-fld span{display:block;font:700 13px var(--font);color:#334050;margin-bottom:5px}.ds-inp{width:100%;min-height:36px;border:1px solid #aeb5bf;border-radius:6px;padding:7px 10px;background:#fff;color:#111923;font:14.5px var(--font);outline:none}.ds-inp:focus{border-color:#111923;box-shadow:0 0 0 3px color-mix(in srgb,#1f5bd6 22%,transparent)}"
+    },
+    {
+      "name": "Chips de filtro",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Filtros por status no topo do mapa; pressionado inverte para tinta.",
+      "html": "<div class=\"ds-filters\"><button class=\"ds-chip\" aria-pressed=\"true\">Todos</button><button class=\"ds-chip\" aria-pressed=\"false\">A definir</button><button class=\"ds-chip\" aria-pressed=\"false\">Aprovados</button></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-filters{display:inline-flex;gap:4px;padding:3px;background:#fff;border:1px solid #aeb5bf;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.07),0 4px 14px rgba(0,0,0,.07)}.ds-chip{height:28px;padding:0 8px;border:1px solid transparent;background:none;border-radius:4px;font:600 13.5px/1 var(--font);color:#334050;cursor:pointer}.ds-chip:hover{background:#f5f6f8;color:#111923}.ds-chip[aria-pressed=\"true\"]{background:#111923;color:#fff}.ds-chip:focus-visible{outline:2px solid #1f5bd6;outline-offset:2px}"
+    },
+    {
+      "name": "Estação",
+      "kind": "card",
+      "refersTo": "station-card",
+      "description": "Passo no mapa: borda na cor da linha, marcador de status, portas de saída.",
+      "html": "<div class=\"ds-node\" style=\"--lc:#1f5bd6\"><div class=\"ds-nh\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"5.5\" fill=\"#fff\" stroke=\"#111923\" stroke-width=\"2.4\"/><circle cx=\"8\" cy=\"8\" r=\"2\" fill=\"#111923\"/></svg><b>Boas-vindas</b></div><p>Olá! Escolha uma opção para continuar.</p><div class=\"ds-ports\"><div class=\"ds-port\">2ª via de boleto<i></i></div><div class=\"ds-port\">Falar com atendente<i></i></div></div></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-node{position:relative;width:256px;background:#fff;border:2px solid var(--lc);border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.07),0 4px 14px rgba(0,0,0,.07);font-family:var(--font);color:#111923;transition:box-shadow .15s}.ds-node:hover{box-shadow:0 2px 4px rgba(0,0,0,.09),0 12px 28px rgba(0,0,0,.14)}.ds-nh{display:flex;align-items:center;gap:8px;padding:10px 12px 6px}.ds-nh b{font:700 15px var(--font);letter-spacing:-.005em}.ds-node p{margin:0;padding:0 12px 10px;color:#334050;font-size:13.5px;line-height:1.4}.ds-ports{border-top:1px solid #d6dbe1;padding:3px 0}.ds-port{position:relative;padding:4px 16px 4px 12px;font-size:13.5px;min-height:28px;display:flex;align-items:center;color:#111923;font-weight:600}.ds-port i{position:absolute;right:-9px;top:50%;transform:translateY(-50%);width:14px;height:14px;border-radius:50%;background:var(--lc);border:3px solid var(--lc)}"
+    },
+    {
+      "name": "Placa de linha",
+      "kind": "custom",
+      "refersTo": "roundel",
+      "description": "Roundel numerado + nome da linha em caixa alta espaçada.",
+      "html": "<div class=\"ds-lane\"><span class=\"ds-rd\" style=\"background:#0b8a48\">2</span><b>Financeiro</b><small>6 passos</small></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-lane{display:flex;align-items:center;gap:8px;font-family:var(--font)}.ds-rd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;color:#fff;font:700 13px/1 var(--font)}.ds-lane b{font:700 13px var(--font);text-transform:uppercase;letter-spacing:.08em;color:#111923}.ds-lane small{font:500 13px var(--font);color:#556070}"
+    },
+    {
+      "name": "Marcadores de estação",
+      "kind": "custom",
+      "refersTo": "station-card",
+      "description": "Status por forma: a definir, em validação, aprovado, baldeação.",
+      "html": "<div class=\"ds-marks\"><span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"5.5\" fill=\"#fff\" stroke=\"#556070\" stroke-width=\"2\" stroke-dasharray=\"2.6 2.2\"/></svg>A definir</span><span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"5.5\" fill=\"#fff\" stroke=\"#111923\" stroke-width=\"2.4\"/><circle cx=\"8\" cy=\"8\" r=\"2\" fill=\"#111923\"/></svg>Em validação</span><span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6.5\" fill=\"#111923\"/><path d=\"M5 8.2l2 2 4-4.2\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Aprovado</span><span><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6.4\" fill=\"#fff\" stroke=\"#111923\" stroke-width=\"1.6\"/><circle cx=\"8\" cy=\"8\" r=\"3.4\" fill=\"#fff\" stroke=\"#111923\" stroke-width=\"1.6\"/></svg>Baldeação</span></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-marks{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid #aeb5bf;border-radius:6px;padding:6px 12px;font:13.5px var(--font);color:#334050}.ds-marks span{display:flex;align-items:center;gap:6px}"
+    },
+    {
+      "name": "Selos",
+      "kind": "chip",
+      "refersTo": "status-badge",
+      "description": "Selos de rodapé da estação, sempre com rótulo.",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-b ds-err\">2 erros</span><span class=\"ds-b ds-warn\">Aviso</span><span class=\"ds-b ds-q\">Pergunta</span><span class=\"ds-b\">3 testes</span></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-badges{display:flex;gap:5px;flex-wrap:wrap;font-family:var(--font)}.ds-b{display:inline-flex;align-items:center;gap:4px;font:600 12.5px var(--font);border-radius:4px;padding:1px 6px;background:#f5f6f8;color:#334050;border:1px solid #d6dbe1}.ds-err{background:#fdeceb;color:#8f1616;border-color:color-mix(in srgb,#c42323 35%,transparent)}.ds-warn{background:#fff3dc;color:#7a4100;border-color:color-mix(in srgb,#a85800 35%,transparent)}.ds-q{background:color-mix(in srgb,#ffc21a 26%,#fff);color:#111923;border-color:color-mix(in srgb,#ffc21a 60%,transparent)}"
+    },
+    {
+      "name": "Abas do painel",
+      "kind": "nav",
+      "refersTo": "tab-active",
+      "description": "Abas do painel lateral; ativa com régua de 3px em tinta.",
+      "html": "<div class=\"ds-tabs\"><button class=\"on\">Editar</button><button>Simular</button><button>Testes</button><button>Dados</button><button>Revisão</button></div>",
+      "css": ":host{--font:\"Barlow\",system-ui,-apple-system,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;font-family:var(--font)}.ds-tabs{display:flex;border-bottom:1px solid #d6dbe1;padding:0 6px;background:#fff;width:420px}.ds-tabs button{flex:1;border:0;background:none;padding:13px 4px 11px;font:600 14.5px var(--font);color:#556070;cursor:pointer;border-bottom:3px solid transparent}.ds-tabs button:hover{color:#111923}.ds-tabs button.on{color:#111923;border-bottom-color:#111923}.ds-tabs button:focus-visible{outline:2px solid #1f5bd6;outline-offset:-2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Rede de Transporte",
+    "overview": "**Creative North Star: \"A Rede de Transporte\"**\n\nO fluxo de conversa é desenhado e lido como um mapa de metrô impresso. Cada grupo de passos é uma linha com cor própria, cada passo é uma estação, cada chamada de subfluxo é uma estação de baldeação. O analista segue a cor da linha, lê o estado de cada estação pelo formato do marcador e entra na baldeação para ver o subfluxo; em reunião projetada, o cliente acompanha o caminho sem precisar de legenda longa.\n\nO sistema é denso e utilitário, com a calma de uma placa de sinalização: chão cinza-papel (à noite, azul-noite), superfícies brancas com régua de 1 px, uma única faixa azul-marinho no topo que faz o papel de placa, e toda a cor saturada reservada para as oito linhas. Tipografia de sinalização: Barlow em pesos fortes, nomes de linha em caixa alta espaçada, números tabulares em tudo. O simulador é a exceção deliberada: ele continua reconhecível como WhatsApp, porque é o que o cliente final verá.\n\nA direção recusa explicitamente o editor de cards arredondados sobre fundo pontilhado com um acento verde.",
+    "keyCharacteristics": [
+      "Cor saturada só nas linhas (grupos); o resto da interface é tinta, cinza e azul-marinho.",
+      "Status de estação por forma de marcador + rótulo, nunca só por cor.",
+      "Ligações como traço de metrô: retas, diagonais de 45°, contorno na cor do chão nos cruzamentos.",
+      "Barra superior como placa de sinalização: azul-marinho, texto branco, roundels numerados.",
+      "Legível projetado: contraste alto, traço que não afina com o zoom, modo de estação distante.",
+      "Tudo offline: fonte, ícones e estilos embutidos, sem rede."
+    ],
+    "rules": [
+      {
+        "name": "The Line Color Rule",
+        "body": "As cores c1–c8 existem só para identificar grupos. Nenhum botão, status, alerta ou destaque usa uma cor de linha. (A única exceção é o azul c1, que também é o azul de interação do sistema: foco, link, menção, seleção de texto, marquee e halo de campo focado.)",
+        "section": "colors"
+      },
+      {
+        "name": "The Shape Before Color Rule",
+        "body": "Status nunca é comunicado só por cor: cada estação mostra um marcador de forma diferente e cada selo traz rótulo. A cor da linha diz *a que grupo* a estação pertence; o marcador diz *em que estado* ela está.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signage Band Rule",
+        "body": "O azul-marinho é a placa: barra superior, primário, barra em massa, toast. Ele não vira fundo de painel nem cor de card.",
+        "section": "colors"
+      },
+      {
+        "name": "The Self-Hosted Barlow Rule",
+        "body": "Barlow é servida de `fonts/` (woff2, 400–700, latin + latin-ext, OFL) e embutida em base64 nos exports (`js/fonts-data.js`). Nunca carregar fonte de CDN: o produto roda via `file://`, sem internet.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Contagens, números de estação, zoom e KPIs usam algarismos tabulares para que colunas e roundels não dancem.",
+        "section": "typography"
+      },
+      {
+        "name": "The Far Station Rule",
+        "body": "Abaixo de zoom k 0.55 o mapa entra em modo de estação distante: cada card mostra só marcador + nome (até duas linhas), em tamanho constante na tela (escalado por `--sc = 1/k`); texto, portas, rodapé e sombras somem. O mapa inteiro continua legível de longe.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Ground Rule",
+        "body": "Chão, faixas e painel lateral não têm sombra. Profundidade é só para o que flutua sobre o mapa.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Constant Stroke Rule",
+        "body": "O traço da ligação nunca afina com o zoom: largura `max(5px, 4px/k)` no mundo, ou seja, no mínimo 4px na tela, com contorno `max(9px, 8px/k)` na cor do chão. A cor é sempre a da linha do passo de origem; tracejado 9/7 marca caminho de falha, pontilhado 1/8 marca entrada inválida.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** usar c1–c8 exclusivamente para identificar grupos (faixa, roundel, borda de estação, porta, ligação).",
+      "**Do** comunicar status por marcador de forma (tracejado, anel, cheio com check, anel duplo) mais rótulo.",
+      "**Do** desenhar ligações com retas e diagonais de 45°, traço de no mínimo 4px na tela e contorno na cor do chão.",
+      "**Do** mudar para estação distante (marcador + nome em tamanho constante) abaixo de zoom k 0.55.",
+      "**Do** servir Barlow de `fonts/` e embutir em base64 nos exports; nada de rede.",
+      "**Do** manter o simulador reconhecível como WhatsApp, com sua paleta escopada.",
+      "**Do** definir cada novo valor nos dois temas (`:root` e `[data-theme=\"dark\"]`).",
+      "**Do** usar números tabulares em toda contagem e numeração."
+    ],
+    "donts": [
+      "**Don't** voltar ao editor de cards arredondados sobre fundo pontilhado com acento verde.",
+      "**Don't** usar uma cor de linha para botão, alerta, status ou destaque.",
+      "**Don't** comunicar status apenas por cor.",
+      "**Don't** deixar o traço das ligações afinar ao afastar o zoom.",
+      "**Don't** carregar fontes ou ícones de CDN.",
+      "**Don't** aplicar a identidade de metrô dentro do simulador.",
+      "**Don't** usar sombras duras ou deslocadas; profundidade é só a sombra difusa de Repouso/Elevado."
+    ]
+  }
+}

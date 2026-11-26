@@ -114,21 +114,21 @@
     return esc(text).replace(/\*([^*\n]+)\*/g, '<b>$1</b>').replace(/\{\{\s*([\w.]+)\s*\}\}/g, '<code>$1</code>').replace(/\n/g, '<br>');
   }
 
-  const DOC_CSS = 'body{font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111923;max-width:900px;margin:0 auto;padding:40px 28px}' +
+  const DOC_CSS = 'body{font:15px/1.55 "Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111923;max-width:900px;margin:0 auto;padding:40px 28px}' +
     'h1{font-size:28px;margin:0 0 4px;line-height:1.2}h2{margin:38px 0 12px;font-size:20px;border-bottom:2px solid #111923;padding-bottom:6px}h3{font-size:16px;margin:22px 0 8px}' +
-    '.sub{color:#566170;margin:0 0 20px}.cards{display:flex;gap:12px;margin:12px 0}.card{flex:1;border:1px solid #d8d9d1;border-radius:8px;padding:12px 14px}' +
-    '.card b{display:block;font-size:26px}.bar{height:8px;background:#e6e6df;border-radius:4px;overflow:hidden;margin:6px 0 2px}.bar i{display:block;height:100%;background:#111923}' +
-    '.node{border:2px solid var(--lc,#d8d9d1);border-radius:8px;padding:14px 16px;margin:14px 0;break-inside:avoid}' +
-    '.node h3{margin:0 0 2px}.meta{font-size:13px;color:#566170;margin-bottom:8px}.pill{display:inline-block;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:700;background:#ececE6;color:#334050}' +
+    '.sub{color:#556070;margin:0 0 20px}.cards{display:flex;gap:12px;margin:12px 0}.card{flex:1;border:1px solid #d6dbe1;border-radius:8px;padding:12px 14px}' +
+    '.card b{display:block;font-size:26px}.bar{height:8px;background:#e3e7ec;border-radius:4px;overflow:hidden;margin:6px 0 2px}.bar i{display:block;height:100%;background:#111923}' +
+    '.node{border:2px solid var(--lc,#d6dbe1);border-radius:8px;padding:14px 16px;margin:14px 0;break-inside:avoid}' +
+    '.node h3{margin:0 0 2px}.meta{font-size:13px;color:#556070;margin-bottom:8px}.pill{display:inline-block;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:700;background:#e9ecf0;color:#334050}' +
     '.s-approved .pill{background:#111923;color:#fff}' +
-    '.msg{background:#f6f6f2;border-radius:6px;padding:9px 12px;margin:8px 0}ul{margin:6px 0 6px 18px;padding:0}li{margin:2px 0}.q{background:#fff3dc;border:1px solid #f0d39a;border-radius:6px;padding:8px 12px;margin-top:8px}' +
+    '.msg{background:#f5f6f8;border-radius:6px;padding:9px 12px;margin:8px 0}ul{margin:6px 0 6px 18px;padding:0}li{margin:2px 0}.q{background:#fff3dc;border:1px solid #f0d39a;border-radius:6px;padding:8px 12px;margin-top:8px}' +
     'code{background:#e6ecff;color:#1d3a8a;padding:0 4px;border-radius:4px;font-size:.9em}.cmt{font-size:13px;color:#334050;margin-top:4px}.todo{color:#a85800}footer{margin-top:40px;color:#8b939c;font-size:12px}' +
-    'table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 16px}th,td{border:1px solid #d8d9d1;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f6f6f2}' +
+    'table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 16px}th,td{border:1px solid #d6dbe1;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f5f6f8}' +
     '.rd{display:inline-block;min-width:20px;padding:0 5px;border-radius:10px;background:var(--lc,#8b939c);color:#fff;font-weight:700;font-size:12px;text-align:center}' +
     '@media print{body{padding:0}.node{page-break-inside:avoid}}' + PALETTE;
 
   function page(title, body) {
-    return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(title) + '</title><style>' + DOC_CSS + '</style></head><body>' + body +
+    return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(title) + '</title><style>' + fontFaceCSS() + DOC_CSS + '</style></head><body>' + body +
       '<footer>Gerado com Chatbot Mapper em ' + dateBR(new Date()) + '</footer></body></html>';
   }
 
@@ -244,8 +244,8 @@
       pendRows(flow).map(r => '| ' + rowOf(r).map(cell).join(' | ') + ' |').join('\n') + '\n';
   }
   function pendHTMLTable(flow) {
-    const st = 'border:1px solid #c8cac2;padding:5px 8px;text-align:left;vertical-align:top;font:13px/1.4 Arial,sans-serif';
-    return '<table style="border-collapse:collapse"><thead><tr>' + HEAD.map(h => '<th style="' + st + ';background:#f0f0ea">' + esc(h) + '</th>').join('') + '</tr></thead><tbody>' +
+    const st = 'border:1px solid #c4cbd3;padding:5px 8px;text-align:left;vertical-align:top;font:13px/1.4 Arial,sans-serif';
+    return '<table style="border-collapse:collapse"><thead><tr>' + HEAD.map(h => '<th style="' + st + ';background:#eef1f4">' + esc(h) + '</th>').join('') + '</tr></thead><tbody>' +
       pendRows(flow).map(r => '<tr>' + rowOf(r).map(c => '<td style="' + st + '">' + esc(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table>';
   }
 
@@ -254,12 +254,12 @@
 
   function playerHTML(flow) {
     const clean = clientCopy(flow);
-    const pageCss = 'html,body{height:100%;margin:0}body{display:flex;flex-direction:column;align-items:center;background:#efefe9;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111923}' +
-      'header{text-align:center;padding:22px 16px 8px}h1{margin:0;font-size:21px}header p{margin:4px 0 0;color:#566170;font-size:14px}' +
-      '#phone{flex:1;width:100%;min-height:0;padding:12px 16px}.opts{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:14px;color:#334050;padding:6px 0 14px}.opts label{display:flex;gap:6px;align-items:center}select{font:inherit;padding:4px 6px;border-radius:6px;border:1px solid #b2b6ad}footer{font-size:12px;color:#8b939c;padding:0 0 14px}';
+    const pageCss = 'html,body{height:100%;margin:0}body{display:flex;flex-direction:column;align-items:center;background:#eceef1;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#111923}' +
+      'header{text-align:center;padding:22px 16px 8px}h1{margin:0;font-size:21px}header p{margin:4px 0 0;color:#556070;font-size:14px}' +
+      '#phone{flex:1;width:100%;min-height:0;padding:12px 16px}.opts{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:14px;color:#334050;padding:6px 0 14px}.opts label{display:flex;gap:6px;align-items:center}select{font:inherit;padding:4px 6px;border-radius:6px;border:1px solid #aeb5bf}footer{font-size:12px;color:#8b939c;padding:0 0 14px}';
     const personas = clean.personas || [];
     return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + esc(flow.meta.name) + ' — simulador</title>' +
-      '<style>' + pageCss + '\n' + PLAYER_CSS + '</style></head><body>' +
+      '<style>' + fontFaceCSS() + pageCss + '\n' + PLAYER_CSS + '</style></head><body>' +
       '<header><h1>' + esc(flow.meta.name) + '</h1><p>Simulador interativo. Toque nas opções ou digite como no WhatsApp.</p></header>' +
       '<div id="phone"></div><div class="opts">' + (personas.length > 1 ? '<label>Dados de exemplo <select id="persona">' + personas.map(p => '<option value="' + esc(p.id) + '"' + (p.id === clean.settings.persona ? ' selected' : '') + '>' + esc(p.name) + '</option>').join('') + '</select></label>' : '') +
       '<label><input type="checkbox" id="tags"> Mostrar o nome de cada passo</label></div>' +
