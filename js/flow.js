@@ -52,6 +52,14 @@
     return id;
   }
 
+  function uniqueCaseId(node, label) {
+    const used = new Set((node.cases || []).map(o => o.id));
+    const base = slug(label);
+    let id = base, i = 2;
+    while (used.has(id)) id = base + '_' + i++;
+    return id;
+  }
+
   function newNode(type, x, y, flow) {
     const ids = flow ? new Set(flow.nodes.map(n => n.id)) : null;
     const n = {
@@ -64,7 +72,7 @@
       n.options = [{ id: 'opcao_1', label: 'Opção 1', description: '', next: null }];
     }
     if (type === 'input') { n.variable = ''; n.validation = 'none'; n.example = ''; n.next = null; n.invalid = null; }
-    if (type === 'action') { n.system = ''; n.onSuccess = null; n.onFailure = null; }
+    if (type === 'action') { n.system = ''; n.cases = []; n.onSuccess = null; n.onFailure = null; }
     return n;
   }
 
@@ -98,6 +106,7 @@
       if (!hasPos) { n.x = i * 40; n.y = i * 40; n._needsLayout = true; }
       if (!STATUS[n.status]) n.status = 'todo';
       if (!Array.isArray(n.comments)) n.comments = [];
+      if (n.type === 'action') { if (!Array.isArray(n.cases)) n.cases = []; n.cases.forEach(c => { if (!c.id) c.id = uniqueCaseId(n, c.label); if (c.next === undefined) c.next = null; }); }
       if (n.type === 'menu') (n.options || []).forEach(o => { if (!o.id) o.id = uniqueOptionId(n, o.label); if (o.description == null) o.description = ''; if (o.next === undefined) o.next = null; });
     });
     if (!flow.settings.startNode || !seen.has(flow.settings.startNode)) flow.settings.startNode = flow.nodes[0] ? flow.nodes[0].id : null;
@@ -118,9 +127,14 @@
       case 'input': return [
         { port: 'next', label: 'Resposta válida', kind: 'ok', to: n.next },
         { port: 'invalid', label: 'Resposta inválida', kind: 'invalid', to: n.invalid }];
-      case 'action': return [
-        { port: 'success', label: 'Sucesso', kind: 'ok', to: n.onSuccess },
-        { port: 'failure', label: 'Falha', kind: 'fail', to: n.onFailure }];
+      case 'action':
+        if (n.cases && n.cases.length) {
+          return n.cases.map(c => ({ port: 'case:' + c.id, label: c.label || '(sem nome)', kind: 'case', to: c.next }))
+            .concat([{ port: 'failure', label: 'Falha / não encontrado', kind: 'fail', to: n.onFailure }]);
+        }
+        return [
+          { port: 'success', label: 'Sucesso', kind: 'ok', to: n.onSuccess },
+          { port: 'failure', label: 'Falha', kind: 'fail', to: n.onFailure }];
       default: return [];
     }
   }
@@ -135,6 +149,10 @@
     else if (port === 'invalid') n.invalid = to;
     else if (port === 'success') n.onSuccess = to;
     else if (port === 'failure') n.onFailure = to;
+    else if (port.indexOf('case:') === 0) {
+      const c = (n.cases || []).find(x => x.id === port.slice(5));
+      if (c) c.next = to;
+    }
     else if (port.indexOf('opt:') === 0) {
       const o = (n.options || []).find(x => x.id === port.slice(4));
       if (o) o.next = to;
@@ -224,7 +242,8 @@
           const where = n.type === 'menu' ? 'A opção "' + p.label.replace(/^\d+ · /, '') + '" não tem destino.'
             : n.type === 'message' ? 'Este nó não tem próximo passo.'
               : n.type === 'input' ? (p.port === 'invalid' ? 'Falta definir o que acontece se a resposta for inválida.' : 'Falta o próximo passo após a resposta válida.')
-                : 'Falta o destino em caso de ' + p.label.toLowerCase() + '.';
+                : p.kind === 'case' ? 'O cenário "' + p.label + '" não tem destino.'
+                  : 'Falta o destino em caso de ' + p.label.toLowerCase() + '.';
           add('warn', n.id, where);
         }
       });
@@ -238,7 +257,7 @@
   }
 
   return {
-    SCHEMA, TYPES, STATUS, VALIDATIONS, uid, slug, uniqueOptionId, newNode, newFlow, normalize,
+    SCHEMA, TYPES, STATUS, VALIDATIONS, uid, slug, uniqueOptionId, uniqueCaseId, newNode, newFlow, normalize,
     map, ports, outLinks, setLink, clearLinksTo, removeNode, duplicateNode, order, autoLayout, stats, lint, estimateHeight
   };
 });

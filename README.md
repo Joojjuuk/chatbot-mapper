@@ -20,6 +20,12 @@ Roda 100% no navegador: **sem instalação, sem servidor, sem internet**. Basta 
 4. Aba **Simular** para testar a conversa; **Apresentar** para o modo tela cheia de reunião.
 5. O trabalho é salvo automaticamente no navegador. Para guardar ou compartilhar, use **Exportar → Salvar fluxo (.json)** e reabra depois em **Abrir** (ou arraste o arquivo para a tela).
 
+### Respostas por cenário (consulta direta)
+
+Um nó de **Ação do sistema** pode responder de formas diferentes conforme o resultado da consulta. Em vez de "encontrei, o que deseja?", o bot já devolve a situação: clique em **Resposta por cenários** no nó e crie, por exemplo, *Entregue*, *Atrasada*, *Em trânsito com ocorrência*. Cada cenário aponta para a mensagem (ou menu com botões) que o cliente recebe, e o simulador mostra um botão por cenário para você testar.
+
+Para a demonstração ficar realista, o arquivo do fluxo aceita valores de exemplo para as variáveis em `settings.sample`, por exemplo `"sample": { "previsao": "25/11/2026 15h" }`. No simulador eles aparecem sublinhados; o que o cliente digita tem prioridade.
+
 ### Atalhos
 
 | Ação | Atalho |

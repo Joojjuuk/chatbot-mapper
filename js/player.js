@@ -11,6 +11,7 @@ function ChatPlayer(root, flow, opts) {
   const nodes = {};
   (flow.nodes || []).forEach(n => { nodes[n.id] = n; });
   const settings = flow.settings || {};
+  const sample = settings.sample || {}; // valores de exemplo para as variáveis (só para demonstração)
   const brand = (flow.meta && flow.meta.brand) || 'Atendimento';
   let vars = {}, waiting = null, token = 0, autoSteps = 0, timers = [];
 
@@ -43,7 +44,7 @@ function ChatPlayer(root, flow, opts) {
 
   /* Formatação estilo WhatsApp (*negrito*, _itálico_, ~riscado~) e variáveis {{nome}}. */
   function fmt(text) {
-    let h = esc(text).replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, k) => (vars[k] != null ? esc(vars[k]) : '<span class="cp-ph">' + k + '</span>'));
+    let h = esc(text).replace(/\{\{\s*([\w.]+)\s*\}\}/g, (m, k) => (vars[k] != null ? esc(vars[k]) : (sample[k] != null ? '<span class="cp-sm">' + esc(sample[k]) + '</span>' : '<span class="cp-ph">' + k + '</span>')));
     h = h.replace(/\*([^*\n]+)\*/g, '<b>$1</b>')
       .replace(/(^|[\s(>])_([^_\n]+)_(?=$|[\s).,!?<])/g, '$1<i>$2</i>')
       .replace(/~([^~\n]+)~/g, '<s>$1</s>')
@@ -199,13 +200,17 @@ function ChatPlayer(root, flow, opts) {
     note('⚙ ' + (n.system ? n.system + ' · ' : '') + (n.text || 'Consulta ao sistema'));
     const sim = document.createElement('div');
     sim.className = 'cp-sim';
-    sim.appendChild(Object.assign(document.createElement('span'), { textContent: 'Simular resultado:' }));
-    [['✓ Sucesso', 'cp-chip cp-ok', 'onSuccess'], ['✗ Falha', 'cp-chip cp-fail', 'onFailure']].forEach(([label, cls, key]) => {
+    const hasCases = n.cases && n.cases.length;
+    sim.appendChild(Object.assign(document.createElement('span'), { textContent: hasCases ? 'Simular cenário:' : 'Simular resultado:' }));
+    const results = hasCases
+      ? n.cases.map(c => [c.label || 'Cenário', 'cp-chip cp-case', c.next]).concat([['✗ Falha / não encontrado', 'cp-chip cp-fail', n.onFailure]])
+      : [['✓ Sucesso', 'cp-chip cp-ok', n.onSuccess], ['✗ Falha', 'cp-chip cp-fail', n.onFailure]];
+    results.forEach(([label, cls, dest]) => {
       const chip = mkButton(cls, label, () => {
         if (sim.classList.contains('cp-used')) return;
         chip.classList.add('cp-chosen');
         sim.classList.add('cp-used'); waiting = null; setComposer(false); autoSteps = 0;
-        if (n[key]) go(n[key]); else note('Sem destino definido para este resultado.', 'warn');
+        if (dest) go(dest); else note('Sem destino definido para este resultado.', 'warn');
       });
       sim.appendChild(chip);
     });

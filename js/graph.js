@@ -24,7 +24,7 @@
   function init(opts) {
     cb = opts.callbacks || {};
     host = opts.host; world = opts.world; nodesEl = opts.nodes; svg = opts.svg; zoomLabel = opts.zoomLabel;
-    svg.innerHTML = '<defs>' + ['next', 'option', 'ok', 'fail', 'invalid', 'hl'].map(k =>
+    svg.innerHTML = '<defs>' + ['next', 'option', 'ok', 'fail', 'invalid', 'case', 'hl'].map(k =>
       '<marker id="arr-' + k + '" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arr arr-' + k + '" d="M0 0L10 5L0 10z"/></marker>').join('') + '</defs><g id="edge-layer"></g><path id="temp-edge" class="edge temp" d=""/>';
 
     host.addEventListener('pointerdown', onDown);

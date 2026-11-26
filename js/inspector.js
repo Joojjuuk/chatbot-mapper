@@ -99,8 +99,23 @@
 
     if (n.type === 'action') {
       h += field('Sistema / integração', '<input type="text" data-f="system" value="' + esc(n.system) + '" placeholder="ex.: Cadastro de clientes">');
-      h += field('Em caso de sucesso', targetSelect(flow, n, 'success', n.onSuccess));
-      h += field('Em caso de falha', targetSelect(flow, n, 'failure', n.onFailure));
+      const cases = n.cases || [];
+      if (cases.length) {
+        h += '<div class="fld"><span class="fld-l">Cenários do resultado</span><div class="opts">' + cases.map((c, i) =>
+          '<div class="opt"><div class="opt-top"><span class="opt-n">' + (i + 1) + '</span>' +
+          '<input type="text" data-cs="' + i + '" value="' + esc(c.label) + '" placeholder="Ex.: Em trânsito com ocorrência">' +
+          '<button type="button" class="ico-btn" data-act="upcase" data-i="' + i + '" title="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+          '<button type="button" class="ico-btn" data-act="downcase" data-i="' + i + '" title="Descer"' + (i === cases.length - 1 ? ' disabled' : '') + '>↓</button>' +
+          '<button type="button" class="ico-btn" data-act="delcase" data-i="' + i + '" title="Remover">×</button></div>' +
+          '<div class="opt-to">→ ' + targetSelect(flow, n, 'case:' + c.id, c.next) + '</div></div>').join('') +
+          '</div><button type="button" class="btn sm" data-act="addcase">+ Adicionar cenário</button>' +
+          '<small class="hint">O sistema consulta e o bot responde direto, conforme o cenário (ex.: entregue, em trânsito, atrasada).</small></div>';
+        h += field('Se não encontrar ou der erro', targetSelect(flow, n, 'failure', n.onFailure));
+      } else {
+        h += field('Em caso de sucesso', targetSelect(flow, n, 'success', n.onSuccess));
+        h += field('Em caso de falha', targetSelect(flow, n, 'failure', n.onFailure));
+        h += '<button type="button" class="btn sm" data-act="addcase" style="margin:-4px 0 14px">Resposta por cenários (status da nota, etc.)</button>';
+      }
     }
 
     h += field('Pergunta em aberto / observações', '<textarea rows="3" data-f="notes" placeholder="O que ainda precisa ser decidido neste passo?">' + esc(n.notes) + '</textarea>',
@@ -203,6 +218,9 @@
       const i = +t.dataset.opt, of = t.dataset.of;
       Store.update(() => { n.options[i][of] = t.value; }, { source: 'inspector', coalesce: 'o:' + n.id + ':' + i + ':' + of });
       updateCounters(); refreshKind();
+    } else if (t.dataset.cs !== undefined && n) {
+      const i = +t.dataset.cs;
+      Store.update(() => { n.cases[i].label = t.value; }, { source: 'inspector', coalesce: 'c:' + n.id + ':' + i });
     } else if (t.dataset.sf) {
       const f = Store.get(), key = t.dataset.sf;
       if (key === 'startNode') return;
@@ -256,6 +274,23 @@
       const j = act === 'upopt' ? i - 1 : i + 1;
       if (j >= 0 && j < n.options.length) {
         Store.update(() => { const t = n.options[i]; n.options[i] = n.options[j]; n.options[j] = t; }, { source: 'inspector' });
+        render();
+      }
+    }
+    else if (act === 'addcase' && n) {
+      Store.update(() => {
+        if (!n.cases) n.cases = [];
+        if (!n.cases.length) { n.cases.push({ id: Flow.uniqueCaseId(n, 'Cenário 1'), label: 'Cenário 1', next: n.onSuccess || null }); n.onSuccess = null; }
+        const label = 'Cenário ' + (n.cases.length + 1);
+        n.cases.push({ id: Flow.uniqueCaseId(n, label), label, next: null });
+      }, { source: 'inspector' });
+      render();
+    }
+    else if (act === 'delcase' && n) { Store.update(() => { n.cases.splice(i, 1); }, { source: 'inspector' }); render(); }
+    else if ((act === 'upcase' || act === 'downcase') && n) {
+      const j = act === 'upcase' ? i - 1 : i + 1;
+      if (j >= 0 && j < n.cases.length) {
+        Store.update(() => { const t = n.cases[i]; n.cases[i] = n.cases[j]; n.cases[j] = t; }, { source: 'inspector' });
         render();
       }
     }

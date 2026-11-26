@@ -154,7 +154,14 @@
       case 'action':
         r.kind = 'action';
         r.action = { system: node.system || '', description: node.text || '' };
-        r.routes = { success: node.onSuccess || null, failure: node.onFailure || null };
+        if (node.cases && node.cases.length) {
+          r.action.cases = node.cases.map(c => ({ id: c.id, label: c.label }));
+          r.routes = {};
+          node.cases.forEach(c => { r.routes['case:' + c.id] = c.next || null; });
+          r.routes.failure = node.onFailure || null;
+        } else {
+          r.routes = { success: node.onSuccess || null, failure: node.onFailure || null };
+        }
         break;
       case 'handoff':
         r.kind = 'handoff'; r.payload = node.text ? textPayload(node.text) : null; r.routes = {};

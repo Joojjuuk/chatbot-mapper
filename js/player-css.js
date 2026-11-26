@@ -19,7 +19,7 @@ var PLAYER_CSS = `
 .cp-bot .cp-b{background:var(--cp-bot);border-top-left-radius:2px}.cp-user .cp-b{background:var(--cp-user);border-top-right-radius:2px}
 .cp-t b{font-weight:700}.cp-hd{font-weight:700;margin-bottom:2px}.cp-ft{color:var(--cp-mute);font-size:12px;margin-top:4px}
 .cp-time{display:block;text-align:right;font-size:10.5px;color:var(--cp-mute);margin-top:2px}
-.cp-ph{background:rgba(14,143,131,.14);color:var(--cp-btn);border-radius:4px;padding:0 4px;font-size:.92em}
+.cp-sm{border-bottom:1px dotted currentColor}.cp-ph{background:rgba(14,143,131,.14);color:var(--cp-btn);border-radius:4px;padding:0 4px;font-size:.92em}
 .cp-ph:before{content:"\\27E8"}.cp-ph:after{content:"\\27E9"}
 .cp-tag{display:none;font-size:10.5px;color:var(--cp-accent);font-weight:700;letter-spacing:.02em;margin-bottom:3px;text-transform:uppercase}
 .cp-show-nodes .cp-tag{display:block}
@@ -30,7 +30,7 @@ var PLAYER_CSS = `
 .cp-note.cp-end{background:rgba(225,232,236,.95)}.cp-note.cp-warn{background:#ffe3e0;color:#8a1c12}
 .cp-sim{align-self:center;display:flex;gap:6px;align-items:center;font-size:12px;color:var(--cp-mute);flex-wrap:wrap;justify-content:center}
 .cp-chip{border:1px solid #b7c4c9;background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;color:#26343b}
-.cp-chip:hover{background:#eef7f6}.cp-chip.cp-ok{border-color:#86c9a3;color:#1d7a46}.cp-chip.cp-fail{border-color:#e8a7a0;color:#a3281d}
+.cp-chip.cp-case{border-color:#8fcfc7;color:#0b6b61}.cp-chip:hover{background:#eef7f6}.cp-chip.cp-ok{border-color:#86c9a3;color:#1d7a46}.cp-chip.cp-fail{border-color:#e8a7a0;color:#a3281d}
 .cp-sim.cp-used{opacity:.6;pointer-events:none}.cp-sim.cp-used .cp-chip:not(.cp-chosen){display:none}
 .cp-typing{align-self:flex-start;background:#fff;border-radius:10px;border-top-left-radius:2px;padding:10px 12px;display:flex;gap:4px;box-shadow:0 1px 1px rgba(0,0,0,.12)}
 .cp-typing i{width:6px;height:6px;border-radius:50%;background:#9aa8ae;animation:cp-blink 1s infinite ease-in-out}

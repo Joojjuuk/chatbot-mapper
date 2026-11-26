@@ -49,4 +49,29 @@ t('payload de lista respeita a estrutura da Cloud API', () => {
   assert.strictEqual(p.interactive.type, 'list');
   assert.strictEqual(p.interactive.action.sections[0].rows.length, 4);
 });
+console.log('Cenários em ações');
+const actionWithCases = () => ({ id: 'a', type: 'action', title: 'a', status: 'todo', system: 's', text: '', onSuccess: null, onFailure: null,
+  cases: [{ id: 'x', label: 'Entregue', next: 'b' }, { id: 'y', label: 'Atrasada', next: null }] });
+t('portas: um cenário por saída mais a falha', () => {
+  const ps = Flow.ports(actionWithCases());
+  assert.deepStrictEqual(ps.map(p => p.port), ['case:x', 'case:y', 'failure']);
+});
+t('setLink grava o destino no cenário', () => {
+  const a = actionWithCases();
+  Flow.setLink(a, 'case:y', 'c');
+  assert.strictEqual(a.cases[1].next, 'c');
+});
+t('ação sem cenários continua com sucesso/falha', () => {
+  assert.deepStrictEqual(Flow.ports({ type: 'action', cases: [] }).map(p => p.port), ['success', 'failure']);
+});
+t('payload da Meta traz as rotas por cenário', () => {
+  const r = Meta.buildNode(actionWithCases());
+  assert.strictEqual(r.routes['case:x'], 'b');
+  assert('failure' in r.routes);
+});
+t('lint avisa cenário sem destino', () => {
+  const f = Flow.normalize({ schema: 'chatbot-mapper/1', meta: { name: 't' }, settings: { startNode: 'a' },
+    nodes: [Object.assign(actionWithCases(), { onFailure: 'b' }), { id: 'b', type: 'end', title: 'fim', status: 'todo', text: '' }] });
+  assert(Flow.lint(f, Meta).some(i => /cenário "Atrasada"/.test(i.message)));
+});
 console.log('\n' + ok + ' testes ok');
