@@ -219,6 +219,7 @@
       if (Meta) Meta.validateNode(n).forEach(i => add(i.severity, n.id, i.message));
       ports(n).forEach(p => {
         if (p.to && !m[p.to]) add('error', n.id, 'Ligação para um nó que não existe (' + p.label + ').');
+        if (!p.to && n.type === 'input' && p.port === 'invalid' && (n.validation || 'none') === 'none') return; // texto livre nunca é inválido
         if (!p.to && n.type !== 'handoff' && n.type !== 'end') {
           const where = n.type === 'menu' ? 'A opção "' + p.label.replace(/^\d+ · /, '') + '" não tem destino.'
             : n.type === 'message' ? 'Este nó não tem próximo passo.'

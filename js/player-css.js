@@ -31,7 +31,7 @@ var PLAYER_CSS = `
 .cp-sim{align-self:center;display:flex;gap:6px;align-items:center;font-size:12px;color:var(--cp-mute);flex-wrap:wrap;justify-content:center}
 .cp-chip{border:1px solid #b7c4c9;background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;color:#26343b}
 .cp-chip:hover{background:#eef7f6}.cp-chip.cp-ok{border-color:#86c9a3;color:#1d7a46}.cp-chip.cp-fail{border-color:#e8a7a0;color:#a3281d}
-.cp-sim.cp-used{opacity:.5;pointer-events:none}
+.cp-sim.cp-used{opacity:.6;pointer-events:none}.cp-sim.cp-used .cp-chip:not(.cp-chosen){display:none}
 .cp-typing{align-self:flex-start;background:#fff;border-radius:10px;border-top-left-radius:2px;padding:10px 12px;display:flex;gap:4px;box-shadow:0 1px 1px rgba(0,0,0,.12)}
 .cp-typing i{width:6px;height:6px;border-radius:50%;background:#9aa8ae;animation:cp-blink 1s infinite ease-in-out}
 .cp-typing i:nth-child(2){animation-delay:.15s}.cp-typing i:nth-child(3){animation-delay:.3s}

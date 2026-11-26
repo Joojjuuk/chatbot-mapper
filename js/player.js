@@ -201,11 +201,13 @@ function ChatPlayer(root, flow, opts) {
     sim.className = 'cp-sim';
     sim.appendChild(Object.assign(document.createElement('span'), { textContent: 'Simular resultado:' }));
     [['✓ Sucesso', 'cp-chip cp-ok', 'onSuccess'], ['✗ Falha', 'cp-chip cp-fail', 'onFailure']].forEach(([label, cls, key]) => {
-      sim.appendChild(mkButton(cls, label, () => {
+      const chip = mkButton(cls, label, () => {
         if (sim.classList.contains('cp-used')) return;
+        chip.classList.add('cp-chosen');
         sim.classList.add('cp-used'); waiting = null; setComposer(false); autoSteps = 0;
         if (n[key]) go(n[key]); else note('Sem destino definido para este resultado.', 'warn');
-      }));
+      });
+      sim.appendChild(chip);
     });
     chat.appendChild(sim); scroll();
     waiting = { type: 'action', node: n };
