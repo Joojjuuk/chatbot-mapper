@@ -216,10 +216,10 @@ input[type=checkbox],input[type=radio]{accent-color:var(--ink);width:16px;height
 /* zoom distante: estação = marcador + nome em tamanho constante na tela */
 .far .n-text,.far .n-ports,.far .n-foot,.far .n-call,.far .n-type,.far .n-start{display:none}
 .far .node{box-shadow:none}
-.far .n-head{padding:calc(4px * var(--sc)) calc(5px * var(--sc));gap:calc(4px * var(--sc));align-items:flex-start}
-.far .n-head .mark{width:calc(12px * var(--sc));height:calc(12px * var(--sc));margin-top:calc(1px * var(--sc))}
-.far .n-title{font-size:calc(11.5px * var(--sc));white-space:normal;overflow-wrap:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.1;letter-spacing:-.01em}
-.far .node{width:316px}
+.far .n-head{padding:calc(3px * var(--sc)) calc(3px * var(--sc));gap:calc(3px * var(--sc));align-items:flex-start}
+.far .n-head .mark{width:calc(10px * var(--sc));height:calc(10px * var(--sc));margin-top:calc(2px * var(--sc))}
+.far .n-title{font-size:calc(13px * var(--sc));white-space:normal;overflow-wrap:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.1;letter-spacing:-.01em}
+.far .node{width:326px}
 .far .node{border-width:calc(2px * var(--sc))}
 .far .node.t-call{border-width:calc(6px * var(--sc))}
 .far .port{display:none}

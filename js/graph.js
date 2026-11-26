@@ -5,7 +5,7 @@
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const NODE_W = 256, LANE_HEAD = 52, LANE_FOOT = 26, COLLAPSED_H = 116, PAD_X = 56, FAR_K = 0.55;
-  let far = false;
+  let far = false, invBucket = 4, rerenderRaf = 0;
 
   let host, world, lanesEl, nodesEl, svg, zoomLabel, marqueeEl = null;
   let view = { x: 80, y: 70, k: 1 };
@@ -67,8 +67,12 @@
     world.style.setProperty('--inv', Math.min(3, Math.max(1, sc)).toFixed(3));
     world.style.setProperty('--lw', Math.max(5, 4 * sc).toFixed(2) + 'px');
     world.style.setProperty('--cw', Math.max(9, 8 * sc).toFixed(2) + 'px');
-    const isFar = view.k < FAR_K;
-    if (isFar !== far) { far = isFar; host.classList.toggle('far', far); if (Store.get()) render(); }
+    const isFar = view.k < FAR_K, bucket = Math.round(Math.min(3, Math.max(1, sc)) * 4);
+    if (isFar !== far || bucket !== invBucket) {
+      const farChanged = isFar !== far;
+      far = isFar; invBucket = bucket; host.classList.toggle('far', far);
+      if (Store.get()) { if (farChanged) render(); else if (!rerenderRaf) rerenderRaf = requestAnimationFrame(() => { rerenderRaf = 0; render(); }); }
+    }
     if (zoomLabel) zoomLabel.textContent = Math.round(view.k * 100) + '%';
     if (cb.onViewChange && !viewRaf) viewRaf = requestAnimationFrame(() => { viewRaf = 0; cb.onViewChange(); });
   }
@@ -91,6 +95,12 @@
   }
 
   function fit() {
+    fitOnce();
+    /* a placa das linhas cresce em zoom distante e muda a altura do mapa: redesenha e enquadra de novo */
+    if (Store.get()) { render(); fitOnce(); }
+  }
+
+  function fitOnce() {
     const b = bounds();
     if (!b) return;
     const top = host.querySelector('#map-top'), mm = host.querySelector('#minimap'), hud = host.querySelector('#map-hud');
@@ -165,7 +175,10 @@
       const L = raw[gid];
       return { bottom: L.maxY, cut: Math.max(0, (L.maxY - L.minY + LANE_HEAD + LANE_FOOT) - COLLAPSED_H - 40) };
     });
-    shiftFn = y => cuts.reduce((s, c) => s + (y >= c.bottom ? c.cut : 0), 0);
+    const head = laneHead();
+    const extra = head - LANE_HEAD;
+    const tops = extra > 0 ? Object.keys(raw).filter(gid => !collapsed.has(gid)).map(gid => raw[gid].minY) : [];
+    shiftFn = y => cuts.reduce((s, c) => s + (y >= c.bottom ? c.cut : 0), 0) - tops.reduce((s, t) => s + (y >= t ? extra : 0), 0);
 
     nodesEl.innerHTML = ''; lanesEl.innerHTML = '';
     rects = {}; portDy = {}; pills = {};
@@ -194,10 +207,10 @@
       lane.style.setProperty('--lc', 'var(--' + color + ')');
       let top, height;
       if (isCol) {
-        top = L.minY - shiftFn(L.minY) - LANE_HEAD; height = COLLAPSED_H;
+        top = L.minY - shiftFn(L.minY) - head; height = COLLAPSED_H + head - LANE_HEAD;
       } else {
         const mine = visible.filter(n => n.group === gid).map(n => rects[n.id]);
-        top = Math.min(...mine.map(r => r.y)) - LANE_HEAD;
+        top = Math.min(...mine.map(r => r.y)) - head;
         height = Math.max(...mine.map(r => r.y + r.h)) - top + LANE_FOOT;
       }
       lane.style.left = left + 'px'; lane.style.top = top + 'px'; lane.style.width = width + 'px'; lane.style.height = height + 'px';
@@ -210,7 +223,7 @@
         const pill = document.createElement('button');
         pill.type = 'button'; pill.className = 'lane-pill'; pill.dataset.laneToggle = gid;
         pill.style.setProperty('--lc', 'var(--' + color + ')');
-        const px = minX + 8, py = top + LANE_HEAD;
+        const px = minX + 8, py = top + head;
         pill.style.left = px + 'px'; pill.style.top = py + 'px';
         pill.innerHTML = rd + esc(g.name) + ' <small>· ' + L.count + ' passos recolhidos</small>';
         pill.title = 'Expandir a linha ' + g.name;
@@ -219,6 +232,12 @@
       }
     });
     drawEdges();
+  }
+
+  /* altura reservada para a placa da linha: cresce quando a placa é ampliada em zoom distante */
+  function laneHead() {
+    const inv = Math.min(3, Math.max(1, 1 / view.k));
+    return Math.max(LANE_HEAD, Math.round(16 + 30 * inv));
   }
 
   function preview(n) {
